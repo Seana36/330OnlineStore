@@ -44,4 +44,70 @@ CREATE TABLE IF NOT EXISTS Customer (
 ) ;
 
 
+DROP TABLE IF EXISTS Cart;
+
+CREATE TABLE Cart (
+  ID INTEGER NOT NULL AUTO_INCREMENT, 
+  customerID VARCHAR(50) NOT NULL, 
+  itemID VARCHAR(50), 
+  orderID VARCHAR(50), 
+
+  PRIMARY KEY (customerID),
+  FOREIGN KEY (orderID) REFERENCES Order(orderID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (itemID) REFERENCES Item(itemID) ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+DROP TABLE IF EXISTS Order;
+
+CREATE TABLE Order (
+  ID INTEGER NOT NULL AUTO_INCREMENT, 
+  orderID VARCHAR(50) NOT NULL, 
+  customerID VARCHAR(50),  
+  orderDate DATETIME,
+  itemID VARCHAR(50),
+  quantity INTEGER(10),
+  status VARCHAR(30), 
+
+  PRIMARY KEY (orderID),
+  FOREIGN KEY (customerID) REFERENCES Cart(customerID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (itemID) REFERENCES Item(itemID) ON DELETE CASCADE ON UPDATE CASCADE,
+) ;
+
+DROP TABLE IF EXISTS CancelledOrders;
+
+CREATE TABLE CancelledOrders (
+  ID INTEGER NOT NULL AUTO_INCREMENT, 
+  orderID VARCHAR(50) NOT NULL, 
+  customerID VARCHAR(50), 
+  status VARCHAR(30),
+ 
+  PRIMARY KEY (orderID)
+) ;
+
+DROP TABLE IF EXISTS ShippingInformation;
+
+CREATE TABLE ShippingInformation (
+  ID INTEGER NOT NULL AUTO_INCREMENT, 
+  customerID VARCHAR(50) NOT NULL, 
+  shipAdd VARCHAR(30),
+ 
+  PRIMARY KEY (customerID)
+) ;
+
+DROP TABLE IF EXISTS Item;
+
+CREATE TABLE Item (
+  ID INTEGER NOT NULL AUTO_INCREMENT, 
+  ItemID VARCHAR(50) NOT NULL, 
+  regularPrice INTEGER(10),
+  salePrice INTEGER(10),
+  sale VARCHAR(1),
+  quantity INTEGER(10),
+  categoryID VARCHAR(50),
+  clearance VARCHAR(1),
+ 
+  PRIMARY KEY (itemID)
+);
+
+
 # FOREIGN KEY (employeeID) REFERENCES Employee (employeeID) on delete cascade on update cascade  ); 
