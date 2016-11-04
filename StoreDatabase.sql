@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS Item (
   quantity INTEGER(10),
   categoryID VARCHAR(50),
   clearance VARCHAR(1),
+  image BLOB, 
  
   PRIMARY KEY (itemID)
 );
