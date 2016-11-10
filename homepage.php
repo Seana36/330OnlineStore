@@ -139,7 +139,7 @@ else{
                 while($row = $result->fetch_assoc()) { 
                     echo "<div class='col-sm-4 col-lg-4 col-md-4'>
                         <div class='thumbnail'>";
-                    echo "<img src='data:image/jpeg;base64," . base64_encode( $row['image'] ) . " '  style='width:320px;height:150px;'/>";
+                    echo "<img src=' ". $row['image'] . "' alt='Item Picture' style='width:320px;height:150px;'/>"; 
                     echo "    <div class='caption'> ";
                     echo "<h4 class='pull-right'> Price: $" . $row["salePrice"]. "</h4>"; 
                             echo "<h4><a href='#''>".  $row["itemName"]. "</a> 
