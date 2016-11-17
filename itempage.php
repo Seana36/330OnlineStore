@@ -128,43 +128,13 @@ else{
 
                 <div class="row">
 
+<?php 
+$item = $_GET['itemID'];
+echo " " .$item;
+?>
 
 
-                <?php 
-                $sql = "SELECT * FROM item"; 
-                $result = $conn -> query($sql);
-
-             
-            if($result -> num_rows > 0 ){
-                while($row = $result->fetch_assoc()) { 
-                    echo "<div class='col-sm-4 col-lg-4 col-md-4'>
-                        <div class='thumbnail'>";
-                    echo "<img src=' ". $row['image'] . "' alt='Item Picture' style='width:320px;height:150px;'/>"; 
-                    echo "    <div class='caption'> ";
-                    echo "<h4 class='pull-right'> Price: $" . $row["salePrice"]. "</h4>"; 
-
-
-                   # echo "<form action = 'itempage.php' method='POST' > ";
-                    echo "<h4><a href='itempage.php?itemID=" .$row['itemID']. "' >".  $row["itemName"]. "</a> </h4> "; 
-                    echo "<p>" . $row["itemDescription"] ." </div> <div class='ratings'> "; 
-                    #echo "</form>";
-                    #echo "<input type = 'submit'  name =". $row['itemName'] ." >";
-                    echo " <p class='pull-right'>815 reviews</p>
-                                <p>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star-empty'></span> 
-                                </p>
-                            </div>
-                        </div>
-                    </div>"; 
-
-                   
-
-                    }} ?>  
-
+               
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <h4><a href="#">Like this template?</a>
