@@ -1,2 +1,3 @@
-<?php header('location:homeController.php'); 
+<?php 
+header('location:homeController.php'); 
 ?>
