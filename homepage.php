@@ -1,24 +1,29 @@
+<?php 
+include('DTOs.php');
+session_start();
+    
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php
+
+ <?php
 //connect to database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "StoreDatabase";
+#$servername = "localhost";
+#$username = "root";
+#$password = "";
+#$dbname = "StoreDatabase";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+#$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-else{   
-    echo "";
-} 
-?>
+#if ($conn->connect_error) {
+ #   die("Connection failed: " . $conn->connect_error);}
+#else{   
+ #   echo "";} 
+?> 
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -130,25 +135,17 @@ else{
 
 
 
-                <?php 
-                $sql = "SELECT * FROM item"; 
-                $result = $conn -> query($sql);
-
-             
-            if($result -> num_rows > 0 ){
-                while($row = $result->fetch_assoc()) { 
-                    echo "<div class='col-sm-4 col-lg-4 col-md-4'>
+<?php 
+    $items = $_SESSION['items']; 
+    for($i = 0; $i<count($items); $i++){
+        $item = $items[$i];
+        echo "<div class='col-sm-4 col-lg-4 col-md-4'>
                         <div class='thumbnail'>";
-                    echo "<img src=' ". $row['image'] . "' alt='Item Picture' style='width:320px;height:150px;'/>"; 
+                    echo "<img src=' ". $item->image . "' alt='Item Picture' style='width:320px;height:150px;'/>"; 
                     echo "    <div class='caption'> ";
-                    echo "<h4 class='pull-right'> Price: $" . $row["salePrice"]. "</h4>"; 
-
-
-                   # echo "<form action = 'itempage.php' method='POST' > ";
-                    echo "<h4><a href='itempage.php?itemID=" .$row['itemID']. "' >".  $row["itemName"]. "</a> </h4> "; 
-                    echo "<p>" . $row["itemDescription"] ." </div> <div class='ratings'> "; 
-                    #echo "</form>";
-                    #echo "<input type = 'submit'  name =". $row['itemName'] ." >";
+                    echo "<h4 class='pull-right'> Price: $" . $item->regularPrice. "</h4>"; 
+                    echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a> </h4> "; 
+                    echo "<p>" . $item->itemDescription ." </div> <div class='ratings'> "; 
                     echo " <p class='pull-right'>815 reviews</p>
                                 <p>
                                     <span class='glyphicon glyphicon-star'></span>
@@ -160,10 +157,8 @@ else{
                             </div>
                         </div>
                     </div>"; 
-
-                   
-
-                    }} ?>  
+    }
+?>  
 
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
