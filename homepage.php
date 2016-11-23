@@ -39,6 +39,21 @@ session_start();
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 
+    <script> 
+        
+
+        function toggleChevron(e) {
+        $(e.target)
+                .prev('.panel-heading')
+                .find("i.indicator")
+                .toggleClass('fa-caret-down fa-caret-right');
+    }
+    $('#accordion').on('hidden.bs.collapse', toggleChevron);
+    $('#accordion').on('shown.bs.collapse', toggleChevron);
+
+
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -87,21 +102,95 @@ session_start();
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+       <!--  <div class="row"> -->
 
-            <div class="col-md-3">
+          <!--   <div class="col-md-3"> -->
                 <p class="lead">Wam-Bam-Azon</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+ <form  action = "searchResultsController.php" method="post">
+<div class="container-fluid">
+    <div class="row">
+   
+        <div class="col-md-3">
+
+            <div id="accordion" class="panel panel-primary behclick-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search Filter Car</h3>
                 </div>
-            </div>
+                <div class="panel-body" >
+                    <div class="panel-heading " >
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse0">
+                                <i class="indicator fa fa-caret-down" aria-hidden="true"></i> Price
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse0" class="panel-collapse collapse in" >
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="1" name='1'>
+                                        0 - $100
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox" >
+                                    <label>
+                                        <input type="checkbox" value="2" name='2'>
+                                        $101 - $200
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox"  >
+                                    <label>
+                                        <input type="checkbox" value="3" name='3'>
+                                        $201 - $600
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox"  >
+                                    <label>
+                                        <input type="checkbox" value="4" name='4'>
+                                        More Than 601$
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        
+            <input type="submit" value="Filter" class="btn btn-default">
+              
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="col-md-9">
-
                 <div class="row carousel-holder">
-
                     <div class="col-md-12">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -132,9 +221,6 @@ session_start();
                 </div>
 
                 <div class="row">
-
-
-
 <?php 
     $items = $_SESSION['items']; 
     for($i = 0; $i<count($items); $i++){
