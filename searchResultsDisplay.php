@@ -70,7 +70,7 @@ session_start();
  
     </ul>
     <div class="col-sm-3 col-md-3">
-        <form class="navbar-form" role="search" action = "searchResultsDisplay.php" method="post">
+        <form class="navbar-form" role="search" action = "searchResultsController.php" method="post">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="searchBar">
             <div class="input-group-btn">
@@ -137,29 +137,34 @@ session_start();
 
 <?php 
     $items = $_SESSION['items']; 
-    for($i = 0; $i<count($items); $i++){
-        $item = $items[$i];
-        echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
-            echo "<div class='thumbnail'>";
-                echo "<img src='".$item->image."' alt='Item Picture' style='width:320px;height:150px;'/>"; 
-                echo "<div class='caption'> ";
-                    echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a></h4> "; 
-                    echo "<h4> Price: $" . $item->regularPrice. "</h4>"; 
-                    echo "<p>" . $item->itemDescription. "</p>";
-                echo "</div>";
-                echo "<div class='ratings'> "; 
-                    echo "<p class='pull-right'>5 reviews</p>
-                          <p>
-                            <span class='glyphicon glyphicon-star'></span>
-                            <span class='glyphicon glyphicon-star'></span>
-                            <span class='glyphicon glyphicon-star'></span>
-                            <span class='glyphicon glyphicon-star'></span>
-                            <span class='glyphicon glyphicon-star-empty'></span> 
-                        </p>
-                </div>
-            </div>
-        </div>"; 
-    }
+    if(count($items) != 0){
+	    for($i = 0; $i<count($items); $i++){
+	        $item = $items[$i];
+	        echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
+	            echo "<div class='thumbnail'>";
+	                echo "<img src='".$item->image."' alt='Item Picture' style='width:320px;height:150px;'/>"; 
+	                echo "<div class='caption'> ";
+	                    echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a></h4> "; 
+	                    echo "<h4> Price: $" . $item->regularPrice. "</h4>"; 
+	                    echo "<p>" . $item->itemDescription. "</p>";
+	                echo "</div>";
+	                echo "<div class='ratings'> "; 
+	                    echo "<p class='pull-right'>5 reviews</p>
+	                          <p>
+	                            <span class='glyphicon glyphicon-star'></span>
+	                            <span class='glyphicon glyphicon-star'></span>
+	                            <span class='glyphicon glyphicon-star'></span>
+	                            <span class='glyphicon glyphicon-star'></span>
+	                            <span class='glyphicon glyphicon-star-empty'></span> 
+	                        </p>
+	                </div>
+	            </div>
+	        </div>"; 
+	   	}
+	}
+else {
+	echo "<h1>No items found</h1>";
+}
 ?>  
                 </div>
             </div>

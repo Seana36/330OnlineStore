@@ -7,23 +7,21 @@ session_start();
 <html lang="en">
 
 <head>
-<?php
+ <?php
 //connect to database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "StoreDatabase";
+#$servername = "localhost";
+#$username = "root";
+#$password = "";
+#$dbname = "StoreDatabase";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+#$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-else{   
-    echo "";
-} 
-?>
+#if ($conn->connect_error) {
+ #   die("Connection failed: " . $conn->connect_error);}
+#else{   
+ #   echo "";} 
+?> 
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,9 +68,9 @@ else{
  
     </ul>
     <div class="col-sm-3 col-md-3">
-        <form class="navbar-form" role="search">
+        <form class="navbar-form" role="search" action = "searchResultsController.php" method="post">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="q">
+            <input type="text" class="form-control" placeholder="Search" name="searchBar">
             <div class="input-group-btn">
                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>

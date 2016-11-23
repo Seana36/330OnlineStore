@@ -23,12 +23,15 @@ class itemDAO{
         while($row = $result->fetch_assoc()) { 
             $item = new itemDTO();
             $item->itemID = $row['itemID'] ; 
-            $item->image = $row['image'];
             $item->itemName = $row['itemName'];
             $item->itemDescription = $row['itemDescription'];
             $item->regularPrice = $row['regularPrice'];
             $item->salePrice = $row['salePrice'];
-            #continue for all columns 
+            $item->sale = $row['sale'];
+            $item->quantity = $row['quantity'];
+            $item->categoryID = $row['categoryID'];
+            $item->clearance = $row['clearance'];
+            $item->image = $row['image'];
             array_push($items_array, $item); 
         }
         return $items_array; 
@@ -56,12 +59,15 @@ class itemDAO{
         while($row = $result->fetch_assoc()) { 
             $item = new itemDTO();
             $item->itemID = $row['itemID'] ; 
-            $item->image = $row['image'];
             $item->itemName = $row['itemName'];
             $item->itemDescription = $row['itemDescription'];
             $item->regularPrice = $row['regularPrice'];
             $item->salePrice = $row['salePrice'];
-            #continue for all columns 
+            $item->sale = $row['sale'];
+            $item->quantity = $row['quantity'];
+            $item->categoryID = $row['categoryID'];
+            $item->clearance = $row['clearance'];
+            $item->image = $row['image']; 
             array_push($items_array, $item); 
         }
         return $items_array; 
