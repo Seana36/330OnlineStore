@@ -8,23 +8,6 @@ session_start();
 <html lang="en">
 
 <head>
-
- <?php
-//connect to database 
-#$servername = "localhost";
-#$username = "root";
-#$password = "";
-#$dbname = "StoreDatabase";
-
-// Create connection
-#$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-#if ($conn->connect_error) {
- #   die("Connection failed: " . $conn->connect_error);}
-#else{   
- #   echo "";} 
-?> 
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,7 +60,7 @@ include("includes/nav.php");
           <!--   <div class="col-md-3"> -->
                 <p class="lead">Wam-Bam-Azon</p>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
- <form  action = "searchResultsController.php" method="post">
+
 <div class="container-fluid">
     <div class="row">
    
@@ -95,12 +78,13 @@ include("includes/nav.php");
                             </a>
                         </h4>
                     </div>
+                    <form action ="filterController.php" method ="post">
                     <div id="collapse0" class="panel-collapse collapse in" >
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="1" name='1'>
+                                        <input type="checkbox" value="1" name='filterControl'>
                                         0 - $100
                                     </label>
                                 </div>
@@ -108,7 +92,7 @@ include("includes/nav.php");
                             <li class="list-group-item">
                                 <div class="checkbox" >
                                     <label>
-                                        <input type="checkbox" value="2" name='2'>
+                                        <input type="checkbox" value="2" name='filterControl'>
                                         $101 - $200
                                     </label>
                                 </div>
@@ -116,7 +100,7 @@ include("includes/nav.php");
                             <li class="list-group-item">
                                 <div class="checkbox"  >
                                     <label>
-                                        <input type="checkbox" value="3" name='3'>
+                                        <input type="checkbox" value="3" name='filterControl'>
                                         $201 - $600
                                     </label>
                                 </div>
@@ -124,7 +108,7 @@ include("includes/nav.php");
                             <li class="list-group-item">
                                 <div class="checkbox"  >
                                     <label>
-                                        <input type="checkbox" value="4" name='4'>
+                                        <input type="checkbox" value="4" name='filterControl'>
                                         More Than 601$
                                     </label>
                                 </div>
@@ -132,12 +116,13 @@ include("includes/nav.php");
                         </ul>
                     </div>
                 </div>
+                
         
             <input type="submit" value="Filter" class="btn btn-default">
-              
+              </form>
 </div>
 </div>
-</form>
+
             <div class="col-md-9">
                 <div class="row carousel-holder">
                     <div class="col-md-12">
