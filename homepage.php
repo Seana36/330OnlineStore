@@ -110,9 +110,7 @@ session_start();
  <form  action = "searchResultsController.php" method="post">
 <div class="container-fluid">
     <div class="row">
-   
         <div class="col-md-3">
-
             <div id="accordion" class="panel panel-primary behclick-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Search Filter Car</h3>
@@ -164,7 +162,6 @@ session_start();
                 </div>
         
             <input type="submit" value="Filter" class="btn btn-default">
-              
 </div>
 </div>
 </form>
