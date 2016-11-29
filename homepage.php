@@ -78,33 +78,33 @@ include("includes/nav.php");
                     <div id="collapse0" class="panel-collapse collapse in" >
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <div class="checkbox">
+                                <div class="radio">
                                     <label>
-                                        <input type="checkbox" value="1" name='filterControl'>
+                                        <input type="radio" value="1" name='filterControl' checked>
                                         0 - $100
                                     </label>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                <div class="checkbox" >
+                                <div class="radio" >
                                     <label>
-                                        <input type="checkbox" value="2" name='filterControl'>
+                                        <input type="radio" value="2" name='filterControl'>
                                         $101 - $200
                                     </label>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                <div class="checkbox"  >
+                                <div class="radio"  >
                                     <label>
-                                        <input type="checkbox" value="3" name='filterControl'>
+                                        <input type="radio" value="3" name='filterControl'>
                                         $201 - $600
                                     </label>
                                 </div>
                             </li>
                             <li class="list-group-item">
-                                <div class="checkbox"  >
+                                <div class="radio"  >
                                     <label>
-                                        <input type="checkbox" value="4" name='filterControl'>
+                                        <input type="radio" value="4" name='filterControl'>
                                         More Than 601$
                                     </label>
                                 </div>
