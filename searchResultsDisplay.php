@@ -9,21 +9,6 @@ session_start();
 
 <head>
 
- <?php
-//connect to database 
-#$servername = "localhost";
-#$username = "root";
-#$password = "";
-#$dbname = "StoreDatabase";
-
-// Create connection
-#$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-#if ($conn->connect_error) {
- #   die("Connection failed: " . $conn->connect_error);}
-#else{   
- #   echo "";} 
-?> 
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,16 +40,13 @@ include("./includes/nav.php");
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Wam-Bam-Azon</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                </div>
-            </div>
+        <div class="row">   
+        <div class="col-md-3">
+        <?php 
+        include("includes/filterBar.php");
+        ?>
+</div>
+</div>
 
             <div class="col-md-9">
 
