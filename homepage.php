@@ -1,24 +1,29 @@
+<?php 
+include('./includes/DTOs.php');
+session_start();
+    
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php
+
+ <?php
 //connect to database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "StoreDatabase";
+#$servername = "localhost";
+#$username = "root";
+#$password = "";
+#$dbname = "StoreDatabase";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+#$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-else{   
-    echo "";
-} 
-?>
+#if ($conn->connect_error) {
+ #   die("Connection failed: " . $conn->connect_error);}
+#else{   
+ #   echo "";} 
+?> 
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,13 +31,28 @@ else{
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Homepage</title>
+    <title>Wham-Bam-Azon</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+
+    <script> 
+        
+
+        function toggleChevron(e) {
+        $(e.target)
+                .prev('.panel-heading')
+                .find("i.indicator")
+                .toggleClass('fa-caret-down fa-caret-right');
+    }
+    $('#accordion').on('hidden.bs.collapse', toggleChevron);
+    $('#accordion').on('shown.bs.collapse', toggleChevron);
+
+
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,59 +64,82 @@ else{
 </head>
 
 <body>
-<!-- Nav Bar --> 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="#">Brand</a>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
- 
-    </ul>
-    <div class="col-sm-3 col-md-3">
-        <form class="navbar-form" role="search">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search" name="q">
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-        </div>
-        </form>
-    </div>
-    </ul>
-  </div><!-- /.navbar-collapse -->
-</nav>
+<?php
+include("includes/nav.php");
+?>
 
 
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+       <!--  <div class="row"> -->
 
-            <div class="col-md-3">
+          <!--   <div class="col-md-3"> -->
                 <p class="lead">Wam-Bam-Azon</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+ <form  action = "searchResultsController.php" method="post">
+<div class="container-fluid">
+    <div class="row">
+   
+        <div class="col-md-3">
+
+            <div id="accordion" class="panel panel-primary behclick-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Search Filter Car</h3>
                 </div>
-            </div>
-
+                <div class="panel-body" >
+                    <div class="panel-heading " >
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse0">
+                                <i class="indicator fa fa-caret-down" aria-hidden="true"></i> Price
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse0" class="panel-collapse collapse in" >
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="1" name='1'>
+                                        0 - $100
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox" >
+                                    <label>
+                                        <input type="checkbox" value="2" name='2'>
+                                        $101 - $200
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox"  >
+                                    <label>
+                                        <input type="checkbox" value="3" name='3'>
+                                        $201 - $600
+                                    </label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="checkbox"  >
+                                    <label>
+                                        <input type="checkbox" value="4" name='4'>
+                                        More Than 601$
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        
+            <input type="submit" value="Filter" class="btn btn-default">
+              
+</div>
+</div>
+</form>
             <div class="col-md-9">
-
                 <div class="row carousel-holder">
-
                     <div class="col-md-12">
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -127,56 +170,35 @@ else{
                 </div>
 
                 <div class="row">
-
-
-
-                <?php 
-                $sql = "SELECT * FROM item"; 
-                $result = $conn -> query($sql);
-
-                
-            if($result -> num_rows > 0 ){
-                while($row = $result->fetch_assoc()) { 
-                    echo "<div class='col-sm-4 col-lg-4 col-md-4'>
-                        <div class='thumbnail'>";
-                    echo "<img src=' ". $row['image'] . "' alt='Item Picture' style='width:320px;height:150px;'/>"; 
-                    echo "    <div class='caption'> ";
-                    echo "<h4 class='pull-right'> Price: $" . $row["salePrice"]. "</h4>"; 
-                            echo "<h4><a href='#''>".  $row["itemName"]. "</a> 
-                                </h4>
-                                <p>" . $row["itemDescription"] ."
-                            </div>
-                            <div class='ratings'> "; 
-                            echo " <p class='pull-right'>815 reviews</p>
-                                <p>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star'></span>
-                                    <span class='glyphicon glyphicon-star-empty'></span> 
-                                </p>
-                            </div>
-                        </div>
-                    </div>"; 
-
-                   
-
-                    }} ?>  
-
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <h4><a href="#">Like this template?</a>
-                        </h4>
-                        <p>If you like this template, then check out <a target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this tutorial</a> on how to build a working review system for your online store!</p>
-                        <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">View Tutorial</a>
-                    </div>
-
+<?php 
+    $items = $_SESSION['items']; 
+    for($i = 0; $i<count($items); $i++){
+        $item = $items[$i];
+        echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
+            echo "<div class='thumbnail'>";
+                echo "<img src='".$item->image."' alt='Item Picture' style='width:320px;height:150px;'/>"; 
+                echo "<div class='caption'> ";
+                    echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a></h4> "; 
+                    echo "<h4> Price: $" . $item->regularPrice. "</h4>"; 
+                    echo "<p>" . $item->itemDescription. "</p>";
+                echo "</div>";
+                echo "<div class='ratings'> "; 
+                    echo "<p class='pull-right'>5 reviews</p>
+                          <p>
+                            <span class='glyphicon glyphicon-star'></span>
+                            <span class='glyphicon glyphicon-star'></span>
+                            <span class='glyphicon glyphicon-star'></span>
+                            <span class='glyphicon glyphicon-star'></span>
+                            <span class='glyphicon glyphicon-star-empty'></span> 
+                        </p>
                 </div>
-
             </div>
-
+        </div>"; 
+    }
+?>  
+                </div>
+            </div>
         </div>
-
     </div>
     <!-- /.container -->
 

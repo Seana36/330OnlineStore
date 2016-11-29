@@ -1,7 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `StoreDatabase`;
-USE `StoreDatabase`;
 
-
+CREATE DATABASE IF NOT EXISTS StoreDatabase;
+USE StoreDatabase;
 
 DROP TABLE IF EXISTS Category;
 CREATE TABLE IF NOT EXISTS Category (
@@ -9,42 +8,57 @@ CREATE TABLE IF NOT EXISTS Category (
   details VARCHAR(100), 
   categoryName VARCHAR(50), 
   PRIMARY KEY (categoryID)
-) ;
+);
+
+DROP TABLE IF EXISTS Advertisement;
+
+CREATE TABLE Advertisement (
+  advertisementID INTEGER(50) NOT NULL, 
+  details VARCHAR(100), 
+  categoryName VARCHAR(50), 
+  PRIMARY KEY (advertisementID)
+);
+
+DROP TABLE IF EXISTS Billing;
+
+CREATE TABLE Billing (
+	billingID INTEGER(50) NOT NULL,
+	customerID INTEGER(50) NOT NULL,
+	billingAddress VARCHAR(100),
+	CreditCardNo INTEGER(50),
+	creditCardType VARCHAR(50),
+	creditCardCVC INTEGER(4),
+	PRIMARY KEY(customerID, billingID),
+	FOREIGN KEY(customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS Customer;
+
+CREATE TABLE Customer (
+	customerID INTEGER(50) NOT NULL,
+	fname VARCHAR(50) NOT NULL,
+	lname VARCHAR(50) NOT NULL,
+	userName VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	email VARCHAR(50),
+	phoneNo INTEGER(11),
+	SecurityQuestion VARCHAR(100) NOT NULL,
+	SecurityQuestionAns VARCHAR(100) NOT NULL,
+	billingID INTEGER(50),
+	PRIMARY KEY(customerID),
+	FOREIGN KEY(billingID) REFERENCES Billing(billingID) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 INSERT INTO `storedatabase`.`category` (`categoryID`, `details`, `categoryName`) VALUES ('1', 'Technology', 'Technology');
 INSERT INTO `storedatabase`.`category` (`categoryID`, `details`, `categoryName`) VALUES ('2', 'Smelly Smelly Fragrances ', 'Fragrance');
 
-DROP TABLE IF EXISTS Advertisment;
-CREATE TABLE IF NOT EXISTS Advertisment (
-  advertismentID Integer(50) NOT NULL AUTO_INCREMENT, 
-  `date` DATETIME, 
-  details VARCHAR(100), 
-  createdBy VARCHAR(10),
-  PRIMARY KEY (advertismentID)
-) ;
-
 DROP TABLE IF EXISTS Employee;
 CREATE TABLE IF NOT EXISTS Employee(
   employeeID INTEGER NOT NULL AUTO_INCREMENT, 
-  position VARCHAR(100), 
-  fName VARCHAR(100), 
-  lName VARCHAR(10),
+  position VARCHAR(100) NOT NULL, 
+  fName VARCHAR(100) NOT NULL, 
+  lName VARCHAR(10) NOT NULL,
   PRIMARY KEY (employeeID)
-) ;
-
-
-DROP TABLE IF EXISTS Customer;
-CREATE TABLE IF NOT EXISTS Customer (
-  customerID INTEGER NOT NULL AUTO_INCREMENT, 
-  fName VARCHAR(15) NOT NULL, 
-  lName VARCHAR(15) NOT NULL, 
-  userName VARCHAR(10) NOT NULL,
-  `password` VARCHAR(10) NOT NULL,
-  email VARCHAR(15),
-  phoneNo INTEGER,
-  secuirtyQuestion VARCHAR(20) NOT NULL,
-  secuirtyQuestionAns VARCHAR(20) NOT NULL,
-  PRIMARY KEY (customerID)
 ) ;
 
 DROP TABLE IF EXISTS Item;
@@ -59,52 +73,9 @@ CREATE TABLE IF NOT EXISTS Item (
   `categoryID` varchar(50) DEFAULT NULL,
   `clearance` varchar(1) DEFAULT NULL,
   `image` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (itemID)
-);
-
-
-
-
-
-
-DROP TABLE IF EXISTS ShippingInformation;
-CREATE TABLE IF NOT EXISTS ShippingInformation (
-  shippingID INTEGER NOT NULL AUTO_INCREMENT, 
-  customerID INTEGER NOT NULL , 
-  shipAdd VARCHAR(30),
  
-  PRIMARY KEY (shippingID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID)  ON DELETE CASCADE ON UPDATE CASCADE
-) ;
-
-DROP TABLE IF EXISTS BillingInformation;
-CREATE TABLE IF NOT EXISTS BillingInformation (
-  billingID INTEGER NOT NULL AUTO_INCREMENT, 
-  customerID INTEGER NOT NULL,
-  billingAddress VARCHAR(50),
-  creditCardNo INTEGER,
-  creditCardType VARCHAR(10),
-  creditCardCVC INTEGER,
- 
-  PRIMARY KEY (billingID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE 
-);
-
-DROP TABLE IF EXISTS OrderList;
-CREATE TABLE IF NOT EXISTS OrderList (
-  orderListID INTEGER NOT NULL AUTO_INCREMENT,
-  orderID INTEGER NOT NULL,
-  customerID INTEGER NOT NULL, 
-  orderDate DATETIME,
-  status VARCHAR(50),
-  billingID INTEGER NOT NULL, 
-  shippingID Integer NOT NULL,
-
- 
-  PRIMARY KEY (orderListID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE ,
-  FOREIGN KEY (billingID) REFERENCES BillingInformation (billingID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (shippingID) REFERENCES ShippingInformation (shippingID) ON DELETE CASCADE ON UPDATE CASCADE 
+  PRIMARY KEY (itemID),
+  FOREIGN KEY (categoryID) REFERENCES Category(categoryID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Order`;
@@ -118,14 +89,13 @@ CREATE TABLE IF NOT EXISTS `Order` (
 
   PRIMARY KEY (orderID, itemID),
   FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (orderID) REFERENCES OrderList(orderListID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (orderID) REFERENCES OrderList(orderID) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (itemID) REFERENCES Item (itemID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
-
 DROP TABLE IF EXISTS Cart;
 CREATE TABLE IF NOT EXISTS Cart (
-  customerID INTEGER NOT NULL AUTO_INCREMENT, 
+  customerID INTEGER NOT NULL, 
   itemID INTEGER, 
   orderID INTEGER, 
 
@@ -136,7 +106,7 @@ CREATE TABLE IF NOT EXISTS Cart (
 
 DROP TABLE IF EXISTS CancelledOrders;
 CREATE TABLE IF NOT EXISTS CancelledOrders (
-  orderID INTEGER NOT NULL AUTO_INCREMENT, 
+  orderID INTEGER NOT NULL, 
   customerID INTEGER NOT NULL, 
   status VARCHAR(30),
  
@@ -145,6 +115,36 @@ CREATE TABLE IF NOT EXISTS CancelledOrders (
 
 ) ;
 
+DROP TABLE IF EXISTS ShippingInformation;
+CREATE TABLE IF NOT EXISTS ShippingInformation (
+  shippingID INTEGER NOT NULL AUTO_INCREMENT, 
+  customerID INTEGER NOT NULL , 
+  shipAdd VARCHAR(30),
+ 
+  PRIMARY KEY (shippingID),
+  FOREIGN KEY (customerID) REFERENCES Customer (customerID)  ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+DROP TABLE IF EXISTS OrderList;
+CREATE TABLE IF NOT EXISTS OrderList (
+  orderListID INTEGER NOT NULL AUTO_INCREMENT,
+  orderID INTEGER NOT NULL,
+  customerID INTEGER NOT NULL, 
+  orderDate DATETIME,
+  status VARCHAR(50),
+  billingID INTEGER NOT NULL, 
+  shippingID Integer NOT NULL,
+ 
+  PRIMARY KEY (orderListID),
+  FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE ,
+  FOREIGN KEY (billingID) REFERENCES BillingInformation (billingID) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (shippingID) REFERENCES ShippingInformation (shippingID) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+/*
+insert into category(categoryName) values("Produce");
+insert into category(categoryName) values("Fragrance");
+insert into category(categoryName) values("Technology");
+*/
 
 
 INSERT INTO `item` ( `itemName`, `itemDescription`, `regularPrice`, `salePrice`, `sale`, `quantity`, `categoryID`, `clearance`, `image`) VALUES
@@ -168,27 +168,7 @@ INSERT INTO `item` ( `itemName`, `itemDescription`, `regularPrice`, `salePrice`,
 ( 'Calvin Klein OBSESSION for Men', 'Intense. Unforgettable. Provocative. Between love and madness lies OBSESSION. This spicy oriental is a provocative and compelling blend of botanics and rare woods. Topnotes – mandarin, bergamot Midnotes – lavender, myrrh, spices Basenotes – musk, sandalwood, patchouli', '60.51', NULL, NULL, NULL, '2', NULL, 'Pictures/CalvinKleinOBSESSION.jpg'),
 ( 'Dolce & Gabbana Light Blue For Women', 'Introduced in 2001. Fragrance notes: rose, apple, musk and jasmine. Recommended use: casual.When applying any fragrance please consider that there are several factors which can affect the natural smell of your skin and, in turn, the way a scent smells on you.  For instance, your mood, stress level, age, body chemistry, diet, and current medications may all alter the scents you wear.  Similarly, factor such as dry or oily skin can even affect the amount of time a fragrance will last after being a', '35.99', NULL, NULL, NULL, '2', NULL, 'Pictures/DolceGabbanaLightBlue.jpg'),
 ( 'Victoria''s Secret Fragrance Mist', 'A lavishly lush combination of peach, cherry blossom and white jasmine make it perfect for your enjoyment.', '10.49', NULL, NULL, NULL, '2', NULL, 'Pictures/VictoriasSecretFragranceMist.jpg'),
-( 'Guess Seductive by Guess', 'Guess seductive for women eau de toilette spray 2.5 oz/75 ml by guess.', '17.41', NULL, NULL, NULL, '2', NULL, 'Pictures/GuessSeductivebyGuess.jpg'),
-( 'Steak', NULL, '8.75', NULL, NULL, 10, '1', NULL, NULL),
-( 'Apple', NULL, '0.50', NULL, NULL, 10, '1', NULL, NULL),
-( 'Pineapple', NULL, '3.00', NULL, NULL, 10, '1', NULL, NULL),
-( 'Orange', NULL, '0.50', NULL, NULL, 10, '1', NULL, NULL),
-( 'Bacon', NULL, '5.99', NULL, NULL, 20, '1', NULL, NULL),
-( 'Buffalo Wings', NULL, '20.00', NULL, NULL, 3, '1', NULL, NULL),
-( 'Green Stuff', NULL, '1.00', NULL, NULL, 5, '1', NULL, NULL),
-( 'Grapes', NULL, '1.25', NULL, NULL, 10, '1', NULL, NULL),
-( 'B-A-N-A-N-A-S', NULL, '2.00', NULL, NULL, 10, '1', NULL, NULL),
-( 'Milk', NULL, '4.50', NULL, NULL, 5, '1', NULL, NULL),
-( 'PearPad', NULL, '200.00', NULL, NULL, 10, '3', NULL, NULL),
-( 'XBOX 0.5', NULL, '400.00', NULL, NULL, 4, '3', NULL, NULL),
-( 'Playstation 5 NEO Mega Slim', NULL, '350.00', NULL, NULL, 5, '3', NULL, NULL),
-( 'iPod', NULL, '300.00', NULL, NULL, 8, '3', NULL, NULL),
-( 'Walkman', NULL, '1.00', NULL, NULL, 2, '3', NULL, NULL),
-( 'Camera', NULL, '150.00', NULL, NULL, 5, '3', NULL, NULL),
-( 'SLR Camera', NULL, '1000.00', NULL, NULL, 3, '3', NULL, NULL),
-( 'USB 3.0 16GB', NULL, '20.00', NULL, NULL, 3, '3', NULL, NULL),
-( 'Some Techy stuff', NULL, '30.00', NULL, NULL, 3, '3', NULL, NULL),
-( 'Laptop', NULL, '1200.00', NULL, NULL, 3, '3', NULL, NULL);
+( 'Guess Seductive by Guess', 'Guess seductive for women eau de toilette spray 2.5 oz/75 ml by guess.', '17.41', NULL, NULL, NULL, '2', NULL, 'Pictures/GuessSeductivebyGuess.jpg');
 
 insert into Employee(position, fName, lName) values("Database Manager", "John", "Doe");
 insert into Employee(position, fName, lName) values("Web Developer", "Joe", "Finley");
@@ -197,36 +177,15 @@ insert into Employee(position, fName, lName) values("Store Manager", "Sean", "Ta
 insert into Employee(position, fName, lName) values("Human Resources Manager", "Raul", "Quiroga");
 insert into Employee(position, fName, lName) values("Web Developer", "Angelo", "Ramirez");
 
-insert into Advertisment(createdBy) values("John Doe");
-
-  insert into Customer(
+insert into Customer(
     fName,
     lName,
     userName,
     password,
     email,
     phoneNo,
-    secuirtyQuestion,
-    secuirtyQuestionAns
-    ) values(
-        "Johnny",
-        "Karate",
-        "JKarate",
-        "password",
-        "something@karate.com",
-        "1-203-595-9595",
-        "What is your favorite hobby?",
-        "Karate"
-    );
-      insert into Customer(
-    fName,
-    lName,
-    userName,
-    password,
-    email,
-    phoneNo,
-    secuirtyQuestion,
-    secuirtyQuestionAns
+    securityQuestion,
+    securityQuestionAns
     ) values(
         "Johnny",
         "Karate",
@@ -238,17 +197,10 @@ insert into Advertisment(createdBy) values("John Doe");
         "Karate"
     );
 
-insert into BillingInformation(customerID) values(1);
-
+insert into Billing(customerID) values(1);
 insert into ShippingInformation(customerID) values(1);
-
 insert into OrderList(customerID, billingID, shippingID) values(1,1,1);
-insert into OrderList(customerID, billingID, shippingID) values(1,1,1);
-
 insert into Cart values(1,1, NULL);
-
-
-
 insert into CancelledOrders(orderID, customerID) values(1,1);
 
 insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",2,1, "Preship");
@@ -256,3 +208,5 @@ insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`,
 insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",10,1, "Preship");
 insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",15,2, "Preship");
 insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",25,1, "Preship");
+
+insert into Advertisement values(1, "50% off", "Technology");

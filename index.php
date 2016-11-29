@@ -1,4 +1,5 @@
-<?php
+<?php 
+header('location:homeController.php'); 
 
 // Start
 session_start();
