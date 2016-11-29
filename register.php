@@ -1,7 +1,7 @@
 <?php
 require "./includes/dbConnect.php";
 
-$username = $_POST["username"];
+$userName = $_POST["username"];
 $fName = $_POST["fName"];
 $lName = $_POST["lName"];
 $password = $_POST["password"];
@@ -11,7 +11,7 @@ $securityQuestion = $_POST["securityQuestion"];
 $securityQuestionAns = $_POST["securityQuestionAns"];
 
 
-$sql = "SELECT position, fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username');";
+$sql = "SELECT fname, lname, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$userName');";
 
 $result = $conn->query($sql);
 
@@ -26,8 +26,12 @@ if($entry)
 
 else
 {
-	$query = "INSERT INTO customer(fName, lName, userName, password, email, phoneNo, securityQuestion, securityQuestionAns) VALUES('$fName', '$lName', '$userName', '$password', '$email', '$phoneNo', '$securityQuestion', '$securityQuestionAns'";
-	$res = mysql_query($query);
+	$query = "INSERT INTO customer(fname, lname, userName, password, email, phoneNo, securityQuestion, securityQuestionAns) VALUES('$fName', '$lName', '$userName', '$password', '$email', '$phoneNo', '$securityQuestion', '$securityQuestionAns')";
+	$res = $conn->query($query);
+	if(!$res)
+		echo "Insert Query Failed";
+	else
+		echo "User added";
 }
 
 ?>
