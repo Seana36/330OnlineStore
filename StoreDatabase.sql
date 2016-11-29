@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Item (
   `salePrice` decimal(7,2) DEFAULT NULL,
   `sale` varchar(1) DEFAULT NULL,
   `quantity` int(10) DEFAULT NULL,
-  `categoryID` varchar(50) DEFAULT NULL,
+  `categoryID` INTEGER DEFAULT NULL,
   `clearance` varchar(1) DEFAULT NULL,
   `image` varchar(50) DEFAULT NULL,
  
