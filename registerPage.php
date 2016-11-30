@@ -85,13 +85,12 @@ include("./includes/nav.php");
       <div class = "container">
 		
 		<h2>Register New Account</h2>
-		<form role = "register form" autocomplete = "off">
+		<form role = "register form" autocomplete = "off" action = "./registerController.php" method="post">
 			<div class = "form-group">
 			<input type = "text" name = "username" class = "form-control" placeholder = "New Username"></div>
 			
 			<div class = "form-group">
 			<input type = "password" name = "password" class = "form-control" placeholder = "Password" required></div>
-			
 			
 			<div class = "form-group">
 			<input type = "text" name = "fName" class = "form-control" placeholder = "First Name" required></div>

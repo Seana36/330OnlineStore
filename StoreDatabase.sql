@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS Category (
 );
 
 DROP TABLE IF EXISTS Advertisement;
-
 CREATE TABLE Advertisement (
   advertisementID INTEGER(50) NOT NULL, 
   details VARCHAR(100), 
@@ -20,7 +19,6 @@ CREATE TABLE Advertisement (
 );
 
 DROP TABLE IF EXISTS Billing;
-
 CREATE TABLE Billing (
 	billingID INTEGER(50) NOT NULL,
 	customerID INTEGER(50) NOT NULL,
@@ -28,12 +26,10 @@ CREATE TABLE Billing (
 	CreditCardNo INTEGER(50),
 	creditCardType VARCHAR(50),
 	creditCardCVC INTEGER(4),
-	PRIMARY KEY(customerID, billingID),
-	FOREIGN KEY(customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE
+	PRIMARY KEY(customerID, billingID)
 );
 
 DROP TABLE IF EXISTS Customer;
-
 CREATE TABLE Customer (
 	customerID INTEGER(50) NOT NULL,
 	fname VARCHAR(50) NOT NULL,
@@ -45,12 +41,8 @@ CREATE TABLE Customer (
 	SecurityQuestion VARCHAR(100) NOT NULL,
 	SecurityQuestionAns VARCHAR(100) NOT NULL,
 	billingID INTEGER(50),
-	PRIMARY KEY(customerID),
-	FOREIGN KEY(billingID) REFERENCES Billing(billingID) ON DELETE CASCADE ON UPDATE CASCADE
+	PRIMARY KEY(customerID)
 );
-
-INSERT INTO `storedatabase`.`category` (`categoryID`, `details`, `categoryName`) VALUES ('1', 'Technology', 'Technology');
-INSERT INTO `storedatabase`.`category` (`categoryID`, `details`, `categoryName`) VALUES ('2', 'Smelly Smelly Fragrances ', 'Fragrance');
 
 DROP TABLE IF EXISTS Employee;
 CREATE TABLE IF NOT EXISTS Employee(
@@ -59,27 +51,26 @@ CREATE TABLE IF NOT EXISTS Employee(
   fName VARCHAR(100) NOT NULL, 
   lName VARCHAR(10) NOT NULL,
   PRIMARY KEY (employeeID)
-) ;
+);
 
 DROP TABLE IF EXISTS Item;
 CREATE TABLE IF NOT EXISTS Item (
   itemID INTEGER NOT NULL AUTO_INCREMENT,  
-  `itemName` varchar(50) DEFAULT NULL,
-  `itemDescription` varchar(500) DEFAULT NULL,
-  `regularPrice` decimal(7,2) DEFAULT NULL,
-  `salePrice` decimal(7,2) DEFAULT NULL,
-  `sale` varchar(1) DEFAULT NULL,
-  `quantity` int(10) DEFAULT NULL,
-  `categoryID` varchar(50) DEFAULT NULL,
-  `clearance` varchar(1) DEFAULT NULL,
-  `image` varchar(50) DEFAULT NULL,
+  itemName varchar(50) DEFAULT NULL,
+  itemDescription varchar(500) DEFAULT NULL,
+  regularPrice decimal(7,2) DEFAULT NULL,
+  salePrice decimal(7,2) DEFAULT NULL,
+  sale varchar(1) DEFAULT NULL,
+  quantity int(10) DEFAULT NULL,
+  categoryID varchar(50) DEFAULT NULL,
+  clearance varchar(1) DEFAULT NULL,
+  image varchar(50) DEFAULT NULL,
  
-  PRIMARY KEY (itemID),
-  FOREIGN KEY (categoryID) REFERENCES Category(categoryID) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (itemID)
 );
 
-DROP TABLE IF EXISTS `Order`;
-CREATE TABLE IF NOT EXISTS `Order` (
+DROP TABLE IF EXISTS Orders;
+CREATE TABLE IF NOT EXISTS Orders(
   orderID INTEGER NOT NULL, 
   customerID INTEGER NOT NULL,  
   orderDate DATETIME,
@@ -87,11 +78,8 @@ CREATE TABLE IF NOT EXISTS `Order` (
   quantity INTEGER(10) NOT NULL,
   status VARCHAR(30), 
 
-  PRIMARY KEY (orderID, itemID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (orderID) REFERENCES OrderList(orderID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (itemID) REFERENCES Item (itemID) ON DELETE CASCADE ON UPDATE CASCADE
-) ;
+  PRIMARY KEY (orderID, itemID)
+);
 
 DROP TABLE IF EXISTS Cart;
 CREATE TABLE IF NOT EXISTS Cart (
@@ -99,10 +87,8 @@ CREATE TABLE IF NOT EXISTS Cart (
   itemID INTEGER, 
   orderID INTEGER, 
 
-  PRIMARY KEY (customerID),
-  FOREIGN KEY (orderID) REFERENCES `Order` (orderID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (itemID) REFERENCES Item (itemID) ON DELETE CASCADE ON UPDATE CASCADE
-) ;
+  PRIMARY KEY (customerID)
+);
 
 DROP TABLE IF EXISTS CancelledOrders;
 CREATE TABLE IF NOT EXISTS CancelledOrders (
@@ -110,10 +96,8 @@ CREATE TABLE IF NOT EXISTS CancelledOrders (
   customerID INTEGER NOT NULL, 
   status VARCHAR(30),
  
-  PRIMARY KEY (orderID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID)  ON DELETE CASCADE ON UPDATE CASCADE
-
-) ;
+  PRIMARY KEY (orderID)
+);
 
 DROP TABLE IF EXISTS ShippingInformation;
 CREATE TABLE IF NOT EXISTS ShippingInformation (
@@ -121,9 +105,8 @@ CREATE TABLE IF NOT EXISTS ShippingInformation (
   customerID INTEGER NOT NULL , 
   shipAdd VARCHAR(30),
  
-  PRIMARY KEY (shippingID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID)  ON DELETE CASCADE ON UPDATE CASCADE
-) ;
+  PRIMARY KEY (shippingID)
+);
 
 DROP TABLE IF EXISTS OrderList;
 CREATE TABLE IF NOT EXISTS OrderList (
@@ -135,19 +118,49 @@ CREATE TABLE IF NOT EXISTS OrderList (
   billingID INTEGER NOT NULL, 
   shippingID Integer NOT NULL,
  
-  PRIMARY KEY (orderListID),
-  FOREIGN KEY (customerID) REFERENCES Customer (customerID) ON DELETE CASCADE ON UPDATE CASCADE ,
-  FOREIGN KEY (billingID) REFERENCES BillingInformation (billingID) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (shippingID) REFERENCES ShippingInformation (shippingID) ON DELETE CASCADE ON UPDATE CASCADE 
+  PRIMARY KEY (orderListID)
 );
+
+#Billing Foreign Key
+ALTER TABLE Billing ADD FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#Customer Foreign Key
+ALTER TABLE Customer ADD FOREIGN KEY (billingID) REFERENCES Billing(billingID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#Item Foreign Key
+ALTER TABLE Item ADD FOREIGN KEY (categoryID) REFERENCES Category(categoryID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#Order Foreign Key
+ALTER TABLE Orders ADD FOREIGN KEY (orderID) REFERENCES OrderList(orderID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Orders ADD FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Orders ADD FOREIGN KEY (itemID) REFERENCES Item(itemID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#Cart Foreign Key
+ALTER TABLE Cart ADD FOREIGN KEY (orderID) REFERENCES OrderList(orderID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Cart ADD FOREIGN KEY (customerID) REFERENCES Item(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#CancelledOrders Foreign Key
+ALTER TABLE CancelledOrders ADD FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#ShippingInformation Foreign Key
+ALTER TABLE ShippingInformation ADD FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+#OrderList Foreign Key
+ALTER TABLE OrderList ADD FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE OrderList ADD FOREIGN KEY (billingID) REFERENCES BillingInformation(billingID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE OrderList ADD FOREIGN KEY (shippingID) REFERENCES ShippingInformation(shippingID) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*
 insert into category(categoryName) values("Produce");
 insert into category(categoryName) values("Fragrance");
 insert into category(categoryName) values("Technology");
 */
 
+INSERT INTO `storedatabase`.`category` (categoryID, details, categoryName) VALUES ('1', 'Technology', 'Technology');
+INSERT INTO `storedatabase`.`category` (categoryID, details, categoryName) VALUES ('2', 'Smelly Smelly Fragrances ', 'Fragrance');
 
-INSERT INTO `item` ( `itemName`, `itemDescription`, `regularPrice`, `salePrice`, `sale`, `quantity`, `categoryID`, `clearance`, `image`) VALUES
+
+INSERT INTO Item ( itemName, itemDescription, regularPrice, salePrice, sale, quantity, categoryID, clearance, image) VALUES
 ( 'ASUS Premium HD Laptop 15.6” ', 'Windows 10 Home 64-bit, Silver Color, Silver, Hairline finish, 3-cell lithium-ion Battery\r\nIntel® Pentium® mobile processor N3700 Quad-Core processor 1.6 GHz with 2M Cache up to 2.4 GHz - four-way processing performance for HD-quality computing, 4GB DDR3L 1600 MHz (Memory RAM Expandable To 8 GB), 5400 RPM HDD', '255.00', '255.00', 'N', 100, '1', 'N', 'Pictures/ASUSPLaptop.jpg'),
 ( 'TeckNet 2.4G Nano Wireless Mouse', 'TeckNet TruWave technology: Provides precise, smart cursor control over many surface types. TeckNet CoLink technology: After pairing there’s no need to re-establish pairing after a signal loss or shutdown.\r\nTeckNet 2.4G Wireless Gaming Technology: Experience zero delay between your thoughts and actions with gaming-grade 2.4GHz wireless, an increased working distance of up to 50ft/15m', '10.00', '9.99', 'N', 100, '1', 'N', 'Pictures/TeckNet2.4GNanoWirelessMouse.jpg'),
 ( 'Nintendo 3DS', 'Nintendo 3DS offers a new way to play, 3D without the need for special glasses. The 3D Depth Slider lets your determine how much 3D you want to see.\r\nPlay 3D games and take 3D pictures with Nintendo 3DS. One inner camera and two outer cameras. Resolutions are 640 x 480 for each camera. Lens are single focus and uses the CMOS capture element.', '249.00', '248.99', 'N', 100, '1', 'N', 'Pictures/Nintendo 3DS.jpg'),
@@ -203,10 +216,10 @@ insert into OrderList(customerID, billingID, shippingID) values(1,1,1);
 insert into Cart values(1,1, NULL);
 insert into CancelledOrders(orderID, customerID) values(1,1);
 
-insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",2,1, "Preship");
-insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",5,2, "Preship");
-insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",10,1, "Preship");
-insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",15,2, "Preship");
-insert into  `order`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",25,1, "Preship");
+insert into  `orders`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",2,1, "Preship");
+insert into  `orders`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",5,2, "Preship");
+insert into  `orders`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",10,1, "Preship");
+insert into  `orders`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",15,2, "Preship");
+insert into  `orders`(`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) values(1,1, "11/10/2016",25,1, "Preship");
 
 insert into Advertisement values(1, "50% off", "Technology");

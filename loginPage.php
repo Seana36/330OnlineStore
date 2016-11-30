@@ -108,7 +108,7 @@ include("./includes/nav.php");
 		
          
       </div> 
-	  <a href = "register.html">Register New User</a>
+	  <a href = "registerPage.php">Register New User</a>
 	  
 	  <!-- jQuery -->
 		<script src="js/jquery.js"></script>
