@@ -152,5 +152,41 @@ class itemDAO{
         return $items_array; 
     }
 
+    public function registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+       # $items_array = array(); 
+        $sql = "SELECT fname, lname, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$userName');";
+
+        $result = $conn->query($sql);
+
+        if (!$result){
+            die("query failed" . $conn->error);
+        }
+        $entry = $result->fetch_row();
+        if($entry)
+        {
+            echo "User already exists";
+        }
+        else
+        {
+            $query = "INSERT INTO`customer`( `fName`, `lName`, `userName`, `password`, `email`, `phoneNo`, `securityQuestion`, `securityQuestionAns`) VALUES('$fName', '$lName', '$userName', '$password', '$email', $phoneNo, '$securityQuestion', '$securityQuestionAns')";
+            if (!$conn->query($query)){
+                die("query1 failed:" . $conn->error);
+            }
+        }
+    }
   }  
 ?>

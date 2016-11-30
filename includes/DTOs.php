@@ -17,4 +17,16 @@ class categoryDTO{
 	public $details;
 	public $categoryName; 
 }
+
+class customerDTO{
+	public $customerID; 
+	public $fName;
+	public $lName;
+	public $userName;
+	public $password;
+	public $email;
+	public $phoneNo;
+	public $securityQuestion;
+	public $securityQuestionAns; 
+}
 ?> 
