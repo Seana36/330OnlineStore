@@ -34,23 +34,28 @@ session_start();
 </head>
 
 <body>
-<?php
-include("./includes/nav.php");
-?>
+    <?php
+        include("includes/nav.php");
+    ?>
+
+
     <!-- Page Content -->
     <div class="container">
+    <p class="lead">Wam-Bam-Azon</p>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <?php 
+                        include("includes/filterBar.php");
+                    ?>
+                </div>
+            </div>
 
-        <div class="row">   
-        <div class="col-md-3">
-        <?php 
-        include("includes/filterBar.php");
-        ?>
-</div>
-</div>
-<?php
-    include("includes/adBar.php");
-?>
-                <div class="row">
+        <?php
+            include("includes/adBar.php");
+        ?> 
+<div class="row">
 
 
 
