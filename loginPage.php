@@ -85,7 +85,7 @@ include("./includes/nav.php");
       <div class = "container">
       
 		<p class="text-center" style="color:red"></p>
-		<form role="form"autocomplete="off">				
+		<form role="form"autocomplete="off" action = "login.php" method = "post">				
 			<div class="form-group">
 			<input type="text" name = "username" class="form-control" placeholder="Username" required autofocus></div>
 			<div class="form-group">
