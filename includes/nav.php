@@ -15,7 +15,7 @@
     <ul class="nav navbar-nav">
       <li><a href="./homeController.php">Home</a></li>
       <li><a href="./loginPage.php">Login/Signup</a></li>
-      <li><a href="./addPageController.php"</a>Add item</li>
+      <li><a href="./addPageController.php">Add item</a></li>
  
     </ul>
     <div class="col-sm-3 col-md-3">
