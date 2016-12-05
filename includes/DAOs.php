@@ -54,6 +54,57 @@ function addToDB($sql, $sqlCheck)
     }
 }
 
+/*
+--------------------------------------------------------------------------
+-----PRE: Requires information to remove
+-----     Table to remove from
+-----PURPOSE: Removes data from database
+-----PARAMETERS:
+-----sqlCheck is the sql code used to check if your item already exist
+-----EX: sqlCheck = "SELECT * FROM item WHERE itemName == . $newItemName .;"
+-----EXcont: if(above == TRUE){ return doesn't exist } else{remove from db}
+-----sql parameter takes in the deletion
+-----EX: sql = "DELETE FROM item WHERE itemName = 'name';"
+-----EXcont: function returns boolean of removed
+--------------------------------------------------------------------------
+*/
+function removeFromDB($sql, $sqlCheck)
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "StoreDatabase";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    else
+    {
+        echo "";
+    }
+    $result = $conn->query($sqlCheck);
+    if(!$result)
+    {
+        echo "Results broken </br>";
+        return FALSE;
+    }
+    if($result->num_rows == 0)
+    {
+        echo "The item does not exist</br>";
+        return FALSE;
+    }
+    else
+    {
+        $conn->query($sql);
+        echo "Successfully removed the item</br>";
+        return TRUE;
+    }
+}
+
 /*////////////////////////////////////////////////////////////////////////////////*/
 class itemDAO{
     #data access objects 

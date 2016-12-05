@@ -16,6 +16,7 @@
       <li><a href="./homeController.php">Home</a></li>
       <li><a href="./loginPage.php">Login/Signup</a></li>
       <li><a href="./addPageController.php">Add item</a></li>
+      <li><a href="./removePageController.php">Remove item</a></li>
  
     </ul>
     <div class="col-sm-3 col-md-3">
@@ -29,5 +30,6 @@
         </form>
     </div>
     </ul>
-  </div><!-- /.navbar-collapse -->
+  </div>
+  <!-- /.navbar-collapse -->
 </nav>
