@@ -65,7 +65,8 @@ session_start();
         $itemName = $_GET['itemName'];
         $itemDesc = $_GET['itemDesc'];
         $regPrice = $_GET['regPrice'];
-        $sql = "INSERT INTO item( itemName, itemDescription, regularPrice) VALUES('$itemName', '$itemDesc', $regPrice)";
+        $category = $_GET['category'];
+        $sql = "INSERT INTO item( itemName, itemDescription, regularPrice, categoryID) VALUES('$itemName', '$itemDesc', $regPrice, (SELECT categoryID FROM category WHERE categoryName = '$category'))";
         $sqlCheck = "SELECT * FROM item WHERE itemName = '$itemName'";
         $done = addToDB($sql, $sqlCheck);
         if($done)
@@ -73,6 +74,7 @@ session_start();
             echo "$itemName </br>";
             echo "$itemDesc</br>";
             echo "$regPrice</br>";
+            echo "$category</br>";
             echo "Done";
         }
         else
@@ -83,13 +85,13 @@ session_start();
 <!-- Providing the feedback -->
 
 
-        <hr>
+    <hr>
 
-        <!-- Footer -->
-        <footer>
+    <!-- Footer -->
+    <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
+                <p>Copyright &copy; Wham-Bam Azon 2014</p>
             </div>
         </div>
         </footer>

@@ -1,7 +1,10 @@
 <?php 
-include('./includes/DTOs.php');
+include('./includes/DAOs.php');
+require_once('./includes/DTOs.php');
 session_start();
-    
+$itemDAO = new itemDAO(); 
+$categories = $itemDAO->getAllCategories();
+$_SESSION['categories'] = $categories; 
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,9 +62,14 @@ include("./includes/nav.php");
             <div class="col-md-3">
                 <p class="lead">Wam-Bam-Azon</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                        <?php
+                            $categories = $_SESSION['categories'];
+                            for($i = 0; $i < count($categories); $i++)
+                            {
+                                $category = $categories[$i];
+                                echo "<a href='#' class='list-group-item'>".$category->categoryName."</a>";
+                            }
+                        ?>
                 </div>
             </div>
 
