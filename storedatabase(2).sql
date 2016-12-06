@@ -3,9 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2016 at 04:13 PM
+-- Generation Time: Dec 06, 2016 at 05:29 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
+CREATE DATABASE IF NOT EXISTS StoreDatabase;
+USE StoreDatabase;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,6 +53,9 @@ CREATE TABLE IF NOT EXISTS `billinginformation` (
   `billingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
   `billingAddress` varchar(50) DEFAULT NULL,
+    billingCity varchar(10) DEFAULT NULL,
+  billingState varchar(10) DEFAULT NULL,
+  billingZipcode int(6) DEFAULT NULL,
   `creditCardNo` int(11) DEFAULT NULL,
   `creditCardType` varchar(10) DEFAULT NULL,
   `creditCardCVC` int(11) DEFAULT NULL,
@@ -155,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`customerID`, `fName`, `lName`, `userName`, `password`, `email`, `phoneNo`, `securityQuestion`, `securityQuestionAns`) VALUES
 (1, 'Johnny', 'Karate', 'JKarate', 'password', 'something@karat', 1, 'What is your favorit', 'Karate'),
-(2, 'Johnny', 'Karate', 'JKarate', 'password', 'something@karat', 1, 'What is your favorit', 'Karate'),
 (5, 'hj;', 'h;lj', 'jhlk', '', 'h;j', 7890, 'hj;k', 'hj;');
 
 -- --------------------------------------------------------
@@ -237,19 +241,19 @@ INSERT INTO `item` (`itemID`, `itemName`, `itemDescription`, `regularPrice`, `sa
 (25, 'Orange', NULL, '0.50', NULL, NULL, 10, 3, NULL, NULL),
 (26, 'Bacon', NULL, '5.99', NULL, NULL, 20, 3, NULL, NULL),
 (27, 'Buffalo Wings', NULL, '20.00', NULL, NULL, 3, 3, NULL, NULL),
-(28, 'Green Stuff', NULL, '1.00', NULL, NULL, 5, 3, NULL, NULL),
+(28, 'Green Stuff', NULL, '1.00', NULL, NULL, 5, 3, NULL, 'Pictures/greenveg.jpg'),
 (29, 'Grapes', NULL, '1.25', NULL, NULL, 10, 3, NULL, NULL),
-(30, 'B-A-N-A-N-A-S', NULL, '2.00', NULL, NULL, 10, 3, NULL, NULL),
-(31, 'Milk', NULL, '4.50', NULL, NULL, 5, 3, NULL, NULL),
-(42, 'PearPad', NULL, '200.00', NULL, NULL, 10, 3, NULL, NULL),
-(43, 'XBOX 0.5', NULL, '400.00', NULL, NULL, 4, 1, NULL, NULL),
-(44, 'Playstation 5 NEO Mega Slim', NULL, '350.00', NULL, NULL, 5, 1, NULL, NULL),
-(45, 'iPod', NULL, '300.00', NULL, NULL, 8, 1, NULL, NULL),
-(46, 'Walkman', NULL, '1.00', NULL, NULL, 2, 1, NULL, NULL),
-(47, 'Camera', NULL, '150.00', NULL, NULL, 5, 1, NULL, NULL),
-(48, 'SLR Camera', NULL, '1000.00', NULL, NULL, 3, 1, NULL, NULL),
-(49, 'USB 3.0 16GB', NULL, '20.00', NULL, NULL, 3, 1, NULL, NULL),
-(51, 'Laptop', NULL, '1200.00', NULL, NULL, 3, 1, NULL, NULL);
+(30, 'B-A-N-A-N-A-S', NULL, '2.00', NULL, NULL, 10, 3, NULL, 'Pictures/bananas.jpg'),
+(31, 'Milk', NULL, '4.50', NULL, NULL, 5, 3, NULL, 'Pictures/milk.jpg'),
+(42, 'PearPad', NULL, '200.00', NULL, NULL, 10, 3, NULL, 'Pictures/pearpad.jpg'),
+(43, 'XBOX 0.5', NULL, '400.00', NULL, NULL, 4, 1, NULL, 'Pictures/xbox.jpg'),
+(44, 'Playstation 5 NEO Mega Slim', NULL, '350.00', NULL, NULL, 5, 1, NULL, 'Pictures/PS5.jpg'),
+(45, 'iPod', NULL, '300.00', NULL, NULL, 8, 1, NULL, 'Pictures/ipod.large'),
+(46, 'Walkman', NULL, '1.00', NULL, NULL, 2, 1, NULL, 'Pictures/walkman.jpg'),
+(47, 'Camera', NULL, '150.00', NULL, NULL, 5, 1, NULL, 'Pictures/camera2.jpg'),
+(48, 'SLR Camera', NULL, '1000.00', NULL, NULL, 3, 1, NULL, 'Pictures/camera.jpeg'),
+(49, 'USB 3.0 16GB', NULL, '20.00', NULL, NULL, 3, 1, NULL, 'Pictures/usb.jpg'),
+(51, 'Laptop', NULL, '1200.00', NULL, NULL, 3, 1, NULL, 'Pictures/laptop.jpg');
 
 -- --------------------------------------------------------
 
@@ -314,10 +318,14 @@ INSERT INTO `orderlist` (`orderListID`, `orderID`, `customerID`, `orderDate`, `s
 -- Table structure for table `shippinginformation`
 --
 
+
 CREATE TABLE IF NOT EXISTS `shippinginformation` (
   `shippingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
   `shipAdd` varchar(30) DEFAULT NULL,
+  shippingCity varchar(10) DEFAULT NULL,
+  shippingState varchar(10) DEFAULT NULL,
+  shippingZipcode int(6) DEFAULT NULL,
   PRIMARY KEY (`shippingID`),
   KEY `customerID` (`customerID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
