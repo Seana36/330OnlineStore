@@ -1,44 +1,30 @@
 <?php 
 require "./includes/dbConnect.php";
-
 $username = $_POST["username"];
-
-$sql = "SELECT position, fName, lName, employeeID FROM employee WHERE employeeID = (SELECT employeeID FROM account WHERE username = '$username');"; 
-
+$password = $_POST["password"]; 
+$sql = "SELECT  fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')"; 
 $result = $conn->query($sql);
 if (!$result){
 	die("query failed" . $conn->error);
 }
 $entry = $result->fetch_row();
-$position = $entry[0];
-$_SESSION["user"] = $entry[1] . " " . $entry[2];
-$_SESSION["userID"] = $entry[3];
-
-switch($position){
-	case "Product Manager":
-		echo "Location:pmindex.html";
-		break;
-	default:
-		echo "You've entered an incorrect username or password!";
+#$position = $entry[0];
+#echo $entry[3];
+$count = mysql_num_rows($result);
+if($count == 1)
+{
+	$_SESSION['is_logged'] = true;
+	$_SESSION["name"] = $entry[0] . " " . $entry[1];
+	$_SESSION["customer"] = $entry[2];
+	echo "Login Successful";
+	header("Location:homeController.php");
 }
-
-$sql = "SELECT position, fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username');"; 
-
-$result = $conn->query($sql);
-if (!$result){
-	die("query failed" . $conn->error);
+else
+{
+	echo "Wrong username or password";
+	header("Location:loginPage.php");
 }
-$entry = $result->fetch_row();
-$position = $entry[0];
-$_SESSION["user"] = $entry[1] . " " . $entry[2];
-$_SESSION["userID"] = $entry[3];
-
-switch($position){
-	case "NULL":
-		echo "Location:index.html";
-		echo "Login Successful";
-		break;
-	default:
-		echo "You've entered an incorrect username or password!";
-}
-?> 
+#$_SESSION["name"] = $entry[0] . " " . $entry[1];
+#$_SESSION["customer"] = $entry[2];
+#header("Location:homeController.php");
+?>

@@ -14,8 +14,16 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="./homeController.php">Home</a></li>
-      <li><a href="./loginPage.php">Login/Signup</a></li>
- 
+	  <?php
+		if(isset($_SESSION['is_logged'])) {
+			echo"<li><a href=logout.php> Logout</a></li>";
+		}
+		else
+		{
+			echo"<li><a href=loginPage.php>Login</a></li>";
+			echo"<li><a href=registerPage.php>Signup</a></li>";
+		}
+	  ?>
     </ul>
     <div class="col-sm-3 col-md-3">
         <form class="navbar-form" role="search" action = "./searchResultsController.php" method="post">
