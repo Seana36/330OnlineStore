@@ -1,7 +1,7 @@
 <?php
     include('./includes/DAOs.php');
     require_once('./includes/DTOs.php');
-    include('TestingScipts.php');
+    require_once('TestingScipts.php');
 
 
     $test1 = new TestingScipts(); 
