@@ -205,9 +205,10 @@ class itemDAO{
             $customer->password = $row["password"];
             $customer->email = $row["email"];
             $customer->phoneNo = $row["phoneNo"];
-            $customer->securityQuestion = $row["securityQuestion"];
-            $customer->securityQuestionAns = $row["securityQuestionAns"];
+            $customer->securityQuestion = $row["SecurityQuestion"];
+            $customer->securityQuestionAns = $row["SecurityQuestionAns"];
         }
+        return $customer;
     }
 
     public function getSearchResults($searchFor){
