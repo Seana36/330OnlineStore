@@ -85,7 +85,11 @@ include("./includes/nav.php");
       <div class = "container">
       
 		<p class="text-center" style="color:red"></p>
+<<<<<<< HEAD
 		<form role="form"autocomplete="off" action = "login.php" method = "post">				
+=======
+		<form role="form" autocomplete="off" action ="login.php" method ="post">				
+>>>>>>> refs/remotes/origin/master
 			<div class="form-group">
 			<input type="text" name = "username" class="form-control" placeholder="Username" required autofocus></div>
 			<div class="form-group">

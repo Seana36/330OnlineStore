@@ -2,7 +2,13 @@
 require "./includes/dbConnect.php";
 $username = $_POST["username"];
 $password = $_POST["password"]; 
+<<<<<<< HEAD
 $sql = "SELECT  fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')"; 
+=======
+
+$sql = "SELECT  fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password');"; 
+
+>>>>>>> refs/remotes/origin/master
 $result = $conn->query($sql);
 if (!$result){
 	die("query failed" . $conn->error);
@@ -10,6 +16,7 @@ if (!$result){
 $entry = $result->fetch_row();
 #$position = $entry[0];
 #echo $entry[3];
+<<<<<<< HEAD
 $count = mysql_num_rows($result);
 if($count == 1)
 {
@@ -27,4 +34,11 @@ else
 #$_SESSION["name"] = $entry[0] . " " . $entry[1];
 #$_SESSION["customer"] = $entry[2];
 #header("Location:homeController.php");
+=======
+ #$_SESSION["name"] = $entry[1] . " " . $entry[2];
+ #$_SESSION["customer"] = $entry[3];
+#echo "Location:homeController.php";
+
+
+>>>>>>> refs/remotes/origin/master
 ?>
