@@ -176,6 +176,40 @@ class itemDAO{
 
     }
 
+    public function getCustomerByID($searchFor)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+        $customerArray = array();
+        $sql = "SELECT * FROM Customer WHERE customerID = '$searchFor';";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc())
+        {
+            $customer = new customerDTO();
+            $customer->customerID = $row["customerID"];
+            $customer->fname = $row["fname"];
+            $customer->lname = $row["lname"];
+            $customer->userName = $row["userName"];
+            $customer->password = $row["password"];
+            $customer->email = $row["email"];
+            $customer->phoneNo = $row["phoneNo"];
+            $customer->securityQuestion = $row["securityQuestion"];
+            $customer->securityQuestionAns = $row["securityQuestionAns"];
+        }
+    }
+
     public function getSearchResults($searchFor){
         $servername = "localhost";
         $username = "root";
