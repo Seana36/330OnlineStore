@@ -15,7 +15,7 @@
     <ul class="nav navbar-nav">
       <li><a href="./homeController.php">Home</a></li>
 	  <?php
-		if(isset($_SESSION['is_logged'])) {
+		if(isset($_SESSION["name"])) {
 			echo"<li><a href=logout.php> Logout</a></li>";
 		}
 		else
