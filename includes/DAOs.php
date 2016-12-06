@@ -1,7 +1,114 @@
 <?php 
 include('DTOs.php');
+##GLOBAL FUNCTIONS
+
+
+/*
+--------------------------------------------------------------------------
+-----PRE: Requires information to add
+-----     Table to add to
+-----PURPOSE: Adds data to database
+-----PARAMETERS:
+-----sqlCheck is the sql code used to check if your item already exist
+-----EX: sqlCheck = "SELECT * FROM item WHERE itemName == . $newItemName .;"
+-----EXcont: if(above == TRUE){ don't add } else{add to db}
+-----sql parameter takes in the insertion
+-----EX: sql = "INSERT INTO item ( itemName, itemDescription, regularPrice, categoryID) VALUES (name, desc, price, category);"
+-----EXcont: function returns boolean of added
+--------------------------------------------------------------------------
+*/
+function addToDB($sql, $sqlCheck)
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "StoreDatabase";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    else
+    {
+        echo "";
+    }
+    $result = $conn->query($sqlCheck);
+    if(!$result)
+    {
+        echo "Results broken </br>";
+        return FALSE;
+    }
+    if($result->num_rows > 0)
+    {
+        echo "The item already exist</br>";
+        return FALSE;
+    }
+    else
+    {
+        $conn->query($sql);
+        echo "Successfully added the item</br>";
+        return TRUE;
+    }
+}
+
+/*
+--------------------------------------------------------------------------
+-----PRE: Requires information to remove
+-----     Table to remove from
+-----PURPOSE: Removes data from database
+-----PARAMETERS:
+-----sqlCheck is the sql code used to check if your item already exist
+-----EX: sqlCheck = "SELECT * FROM item WHERE itemName == . $newItemName .;"
+-----EXcont: if(above == TRUE){ return doesn't exist } else{remove from db}
+-----sql parameter takes in the deletion
+-----EX: sql = "DELETE FROM item WHERE itemName = 'name';"
+-----EXcont: function returns boolean of removed
+--------------------------------------------------------------------------
+*/
+function removeFromDB($sql, $sqlCheck)
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "StoreDatabase";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    else
+    {
+        echo "";
+    }
+    $result = $conn->query($sqlCheck);
+    if(!$result)
+    {
+        echo "Results broken </br>";
+        return FALSE;
+    }
+    if($result->num_rows == 0)
+    {
+        echo "The item does not exist</br>";
+        return FALSE;
+    }
+    else
+    {
+        $conn->query($sql);
+        echo "Successfully removed the item</br>";
+        return TRUE;
+    }
+}
+
+/*////////////////////////////////////////////////////////////////////////////////*/
 class itemDAO{
     #data access objects 
+
     public function getAllItems(){
         $servername = "localhost";
         $username = "root";
@@ -37,6 +144,37 @@ class itemDAO{
         return $items_array; 
     }
 
+
+    public function getAllCategories()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        }
+        $categoryArray = array();
+        $sql = "SELECT * FROM Category";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc())
+        { 
+            $category = new categoryDTO();
+            $category->categoryID = $row["categoryID"];
+            $category->details = $row["details"];
+            $category->categoryName = $row["categoryName"];
+            array_push($categoryArray, $category); 
+        }
+        return $categoryArray;
+
+    }
 
     public function getSearchResults($searchFor){
         $servername = "localhost";
@@ -172,7 +310,8 @@ class itemDAO{
 
         $result = $conn->query($sql);
 
-        if (!$result){
+        if (!$result)
+        {
             die("query failed" . $conn->error);
         }
         $entry = $result->fetch_row();

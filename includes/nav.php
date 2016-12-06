@@ -15,15 +15,16 @@
     <ul class="nav navbar-nav">
       <li><a href="./homeController.php">Home</a></li>
 	  <?php
-		if(isset($_SESSION["name"])) {
-			echo"<li><a href=logout.php> Logout</a></li>";
+		if($_SESSION['loggedIn']) {
+			echo "<li><a href='./logout.php'>Logout</a></li>";
 		}
-		else
-		{
-			echo"<li><a href=loginPage.php>Login</a></li>";
-			echo"<li><a href=registerPage.php>Signup</a></li>";
+		else{
+			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
 		}
-	  ?>
+		?>
+      <li><a href="./addPageController.php">Add item</a></li>
+      <li><a href="./removePageController.php">Remove item</a></li>
+ 
     </ul>
     <div class="col-sm-3 col-md-3">
         <form class="navbar-form" role="search" action = "./searchResultsController.php" method="post">
@@ -36,5 +37,6 @@
         </form>
     </div>
     </ul>
-  </div><!-- /.navbar-collapse -->
+  </div>
+  <!-- /.navbar-collapse -->
 </nav>

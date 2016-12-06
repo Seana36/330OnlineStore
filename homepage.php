@@ -54,9 +54,8 @@ session_start();
 
     <!-- Page Content -->
     <div class="container">
-        <p class="lead">Wam-Bam-Azon</p>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-
+    <p class="lead">Wam-Bam-Azon</p>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
@@ -68,16 +67,15 @@ session_start();
 
         <?php
             include("includes/adBar.php");
-        ?>
-        
-        <div class="row">
+        ?>    
+    <div class="row">
     <?php 
         $items = $_SESSION['items']; 
         for($i = 0; $i<count($items); $i++){
             $item = $items[$i];
             echo "<div class='col-sm-4 col-lg-4 col-md-4'>";
                 echo "<div class='thumbnail'>";
-                    echo "<img src='".$item->image."' alt='Item Picture' style='width:320px;height:150px;'/>"; 
+                    echo "<a href='itempage.php?itemID=" .$item->itemID. "' ><img src='".$item->image."' alt='Item Picture' style='width:320px;height:150px;'/></a>"; 
                     echo "<div class='caption'> ";
                         echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a></h4> "; 
                         echo "<h4> Price: $" . $item->regularPrice. "</h4>"; 

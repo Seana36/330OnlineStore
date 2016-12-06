@@ -79,6 +79,7 @@
       </div> <!-- /container -->
       
 <?php
+session_start();
 include("./includes/nav.php");
 ?>
 	  
