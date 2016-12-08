@@ -7,5 +7,8 @@
     $test1 = new TestingScipts(); 
 	$TESTING1 = $test1->test_getAllItems();
 
+	$test2 = new TestingScipts(); 
+	$TESTING2 = $test2->test_getAllCategories();
+
 
 ?>
