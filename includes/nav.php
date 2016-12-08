@@ -16,6 +16,14 @@
       <li><a href="./homeController.php">Home</a></li>
 	  <?php
 		if($_SESSION['loggedIn']) {
+			echo "<li class='dropdown'>
+        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
+        <span class='caret'></span></a>
+        <ul class='dropdown-menu'>
+          <li><a href='#'>Edit Profile</a></li>
+          <li><a href='#'>Edit Billing</a></li>
+        </ul>
+      </li>";
 			echo "<li><a href='./logout.php'>Logout</a></li>";
 		}
 		else{
