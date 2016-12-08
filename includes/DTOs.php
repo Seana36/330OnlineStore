@@ -29,4 +29,8 @@ class customerDTO{
 	public $securityQuestion;
 	public $securityQuestionAns; 
 }
+//order
+//shipping info 
+//billing info
+
 ?> 
