@@ -222,7 +222,7 @@ foreach ($products as $id => $product)
 {
 	echo "
 		<tr>
-			<td style = 'border-bottom:1px solid #000000;'> <a href = './index.php?view_product=$id'>" . $							product['name'] . "</a> </td>
+			<td style = 'border-bottom:1px solid #000000;'> <a href = './index.php?view_product=$id'>" . $product['name'] . "</a> </td>
 			<td style = 'border-bottom:1px solid #000000;'>$" . $product['price'] . "</td> 
 			<td style = 'border-bottom:1px solid #000000;'>" . $product['category'] . "</td>
 		</tr>";

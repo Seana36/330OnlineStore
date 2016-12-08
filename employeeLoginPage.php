@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang = "en">
 
 	<head>
@@ -79,46 +82,36 @@
       </div> <!-- /container -->
       
 <?php
-session_start();
 include("./includes/nav.php");
 ?>
 	  
       <div class = "container">
+      
+		<p class="text-center" style="color:red"></p>
+		<form role="form" autocomplete="off" action ="employeeLogin.php" method ="post">				
+			<div class="form-group">
+			<input type="text" name = "username" class="form-control" placeholder="Username" required autofocus></div>
+			<div class="form-group">
+			<input type="password" name = "password" class="form-control" placeholder="Password" required></div>
+			<div class="form-group">
+			<input type="submit" class="form-control btn btn-primary" name="submit" value="Login"></div>
+		</form>
 		
-		<h2>Register New Account</h2>
-		<form role = "register form" autocomplete = "off" action = "./registerController.php" method="post">
+		<!--<h2>Register New Account</h2>
+		<form role = "register form" autocomplete = "off">
 			<div class = "form-group">
 			<input type = "text" name = "username" class = "form-control" placeholder = "New Username"></div>
-			
 			<div class = "form-group">
 			<input type = "password" name = "password" class = "form-control" placeholder = "Password" required></div>
-			
 			<div class = "form-group">
-			<input type = "text" name = "fName" class = "form-control" placeholder = "First Name" required></div>
-			
-			<div class = "form-group">
-			<input type = "text" name = "lName" class = "form-control" placeholder = "Last Name" required></div>
-			
-			<div class = "form-group">
-			<input type = "text" name = "email" class = "form-control" placeholder = "Email"></div>
-			
-			<div class = "form-group">
-			<input type = "number" name = "phoneNo" class = "form-control" placeholder = "Phone Number"></div>
-			
-			<div class = "form-group">
-			<input type = "text" name = "securityQuestion" class = "form-control" placeholder = "Security Question"></div>
-			
-			<div class = "form-group">
-			<input type = "text" name = "securityQuestionAns" class = "form-control" placeholder = "Security Question Answer"></div>
-			
-			
+			<input type = "confirm password" name = "password" class "form-control" placeholder = "Confirm Password" required></div>
 			<div class = "form-group">
 			<input type = "submit" class = "form-control btn btn-primary" name = "submit" value = "Register"></div>
-		</form>
+		</form>-->
 		
          
       </div> 
-	  
+	  <!--<a href = "registerPage.php">Register New User</a>-->
 	  
 	  <!-- jQuery -->
 		<script src="js/jquery.js"></script>
