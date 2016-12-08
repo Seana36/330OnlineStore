@@ -13,17 +13,25 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><a href="./homeController.php">Home</a></li>
+      <li><a href="./homePage.php">Home</a></li>
 	  <?php
 		if($_SESSION['loggedIn']) {
-			echo "<li class='dropdown'>
-        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
-        <span class='caret'></span></a>
-        <ul class='dropdown-menu'>
-          <li><a href='#'>Edit Profile</a></li>
-          <li><a href='#'>Edit Billing</a></li>
-        </ul>
-      </li>";
+			if($_SESSION['employeeAccount'])
+			{
+				echo"<li><a href=''>Employee Settings</a></li>";
+			}
+			
+			else{
+				echo "<li class='dropdown'>
+			<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
+			<span class='caret'></span></a>
+			<ul class='dropdown-menu'>
+				<li><a href='#'>Edit Profile</a></li>
+				<li><a href='#'>Edit Billing</a></li>
+			</ul>
+			</li>";
+			}
+			
 			echo "<li><a href='./logout.php'>Logout</a></li>";
 		}
 		else{
