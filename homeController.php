@@ -5,8 +5,10 @@
 	$itemDAO = new itemDAO(); 
 	$items = $itemDAO->getAllItems(); 
 	session_start(); 
-	$_SESSION['loggedIn'] = FALSE;
-	$_SESSION['employeeAccount'] = FALSE;
+	if(empty($_SESSION['loggedIn']))
+		$_SESSION['loggedIn'] = FALSE;
+	if(empty($_SESSION['employeeAccount']))
+		$_SESSION['employeeAccount'] = FALSE;
 	$_SESSION['items'] = $items; 
 	header('location:homepage.php'); 
 ?>

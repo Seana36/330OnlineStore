@@ -14,7 +14,7 @@ if($entry > 0)
 $_SESSION['loggedIn'] = TRUE;
 $_SESSION["name"] = $entry[0] . " " . $entry[1];
 $_SESSION["customer"] = $entry[2];
-header('Location:homePage.php');
+header('Location:homeController.php');
 }
 
 else
