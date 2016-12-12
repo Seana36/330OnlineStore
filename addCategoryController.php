@@ -4,7 +4,7 @@
 
 	$itemDAO = new itemDAO(); 
 	$categories = $itemDAO->getAllCategories(); 
-	session_start(); 
+	session_start();
 	$_SESSION['categories'] = $categories; 
-	header('location:addPage.php'); 
+	header('location:addCategory.php'); 
 ?>

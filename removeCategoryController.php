@@ -3,8 +3,8 @@
     require_once('./includes/DTOs.php');
 
 	$itemDAO = new itemDAO(); 
-	$items = $itemDAO->getAllItems();
+	$categories = $itemDAO->getAllCategories();
     session_start();
-    $_SESSION['items'] = $items;
-    header('location:removePage.php');
+    $_SESSION['categories'] = $categories;
+    header('location:removeCategory.php');
 ?>

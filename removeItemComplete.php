@@ -62,36 +62,30 @@ session_start();
     <div class="container">
 <!-- Providing response to item -->
     <?php
-        $itemName = $_GET['itemName'];
-        $itemDesc = $_GET['itemDesc'];
-        $regPrice = $_GET['regPrice'];
-        $category = $_GET['category'];
-        $sql = "INSERT INTO item( itemName, itemDescription, regularPrice, categoryID) VALUES('$itemName', '$itemDesc', $regPrice, (SELECT categoryID FROM category WHERE categoryName = '$category'))";
+        $itemName = $_POST['item'];
+        $sql = "DELETE FROM item WHERE itemName = '$itemName'";
         $sqlCheck = "SELECT * FROM item WHERE itemName = '$itemName'";
-        $done = addToDB($sql, $sqlCheck);
+        $done = removeFromDB($sql, $sqlCheck);
         if($done)
         {
             echo "$itemName </br>";
-            echo "$itemDesc</br>";
-            echo "$regPrice</br>";
-            echo "$category</br>";
             echo "Done";
         }
         else
         {
-            echo "Nothing was added</br>";
+            echo "Nothing was removed</br>";
         }
     ?>
 <!-- Providing the feedback -->
 
 
-    <hr>
+        <hr>
 
-    <!-- Footer -->
-    <footer>
+        <!-- Footer -->
+        <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p>Copyright &copy; Wham-Bam Azon 2014</p>
+                <p>Copyright &copy; Your Website 2014</p>
             </div>
         </div>
         </footer>

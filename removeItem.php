@@ -61,7 +61,7 @@ session_start();
     <div class="container">
 <!-- Removing Item -->
 
-    <form class="form-horizontal" action="removePageComplete.php" method="get"> <!-- Form Style -->
+    <form class="form-horizontal" action="removeItemComplete.php" method="post"> <!-- Form Style -->
         
         <!-- Itemname Field -->
         <div class="form-group">
