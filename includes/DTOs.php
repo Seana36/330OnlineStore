@@ -39,7 +39,7 @@ class shippingDTO{
 	public $shippingZipcode;
 }
 //order
-
+//shipping info 
 //billing info
 
 ?> 

@@ -199,17 +199,63 @@ class itemDAO{
         {
             $customer = new customerDTO();
             $customer->customerID = $row["customerID"];
-            $customer->fname = $row["fname"];
-            $customer->lname = $row["lname"];
+            $customer->fName = $row["fName"];
+            $customer->lName = $row["lName"];
             $customer->userName = $row["userName"];
             $customer->password = $row["password"];
             $customer->email = $row["email"];
             $customer->phoneNo = $row["phoneNo"];
-            $customer->securityQuestion = $row["SecurityQuestion"];
-            $customer->securityQuestionAns = $row["SecurityQuestionAns"];
+            $customer->securityQuestion = $row["securityQuestion"];
+            $customer->securityQuestionAns = $row["securityQuestionAns"];
+             array_push($customerArray, $customer); 
         }
-        return $customer;
+        return $customerArray;
     }
+
+
+
+
+
+  public function getShippingByID($searchFor)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+        $shippingArray = array();
+        $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc())
+        {
+            $shipping = new shippingDTO();
+            $shipping->shippingID = $row["shippingID"];
+            $shipping->customerID = $row["customerID"];
+            $shipping->shipAdd = $row["shipAdd"];
+            $shipping->shippingCity = $row["shippingCity"];
+            $shipping->shippingState = $row["shippingState"];
+            $shipping->shippingZipcode= $row["shippingZipcode"];
+           
+             array_push($shippingArray, $shipping); 
+        }
+        return $shippingArray;
+    }
+
+
+
+
+
+
+
 
     public function getSearchResults($searchFor){
         $servername = "localhost";
@@ -362,5 +408,47 @@ class itemDAO{
             }
         }
     }
+
+
+
+
+
+      public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+
+
+       
+        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd' WHERE customerID='$customerID');";
+
+        if (mysqli_query($conn, $sql)) {
+            //echo "Record updated successfully";
+            }           
+            else {
+             echo "Error updating record: " . mysqli_error($conn);
+            }
+
+        
+    }
+
+    #shipAdd, shippingCity, shippingState, shippingZipcode
+
+
+
+
+
+
   }  
 ?>
