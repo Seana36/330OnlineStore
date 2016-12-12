@@ -29,8 +29,17 @@ class customerDTO{
 	public $securityQuestion;
 	public $securityQuestionAns; 
 }
+
+class shippingDTO{
+	public $shippingID;
+	public $customerID;
+	public $shippingAdd;
+	public $shippingCity;
+	public $shippingState;
+	public $shippingZipcode;
+}
 //order
-//shipping info 
+
 //billing info
 
 ?> 
