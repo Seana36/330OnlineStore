@@ -109,5 +109,24 @@ class TestingScipts{
 		}
 	}
 
+	function test_registerNewUser(){
+		$test6 = new itemDAO(); 
+		$userName = 'SeanTaylor';
+		$fName = 'Sean';
+		$lName = 'Taylor';
+		$password ='p@ssw0rd';
+		$email = 'something@gmail.com';
+		$phoneNo = 2034941111; 
+		$securityQuestion = 'What is your favorite class?';
+		$securityQuestionAns = 'CSC 330';
+		$TESTING6 = $test6->registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns);  
+		$_SESSION['items'] = $TESTING6; 
+		for($i = 0; $i<count($TESTING6); $i++){
+			$item = $TESTING6[$i];
+			echo $item->customerID . " " . $item->fName; 
+		}
+		echo "test finished";
+	}
+
 }
 ?>
