@@ -32,7 +32,7 @@
 	#$test6 = new TestingScipts();
 	$TESTING6 = $test->test_registerNewUser();//need to make this 
 
-	#$TESTING7 = $test->test_getCustomerByID();
+	$TESTING7 = $test->test_getCustomerByUserName();
 
 	#$TESTING8 = $test->test_deletedCustomer(); //need to make this 
 

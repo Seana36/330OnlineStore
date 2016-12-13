@@ -32,14 +32,12 @@ class TestingScipts{
 			echo "Expecting size of 3 <br>";
 			echo "Actual Size: " . count($TESTING1). "<br>";
 			echo "------------------------------------------------------------------------<br> ";
-
 		}
 		else {
 			echo "Test didnt work <br>";
 			echo "Expecting size of 3 <br>";
 			echo "Actual Size: " . count($TESTING1). "<br>";
 			echo "------------------------------------------------------------------------<br>";
-
 		}
 
 	}
@@ -110,8 +108,13 @@ class TestingScipts{
 	}
 
 	function test_registerNewUser(){
+		echo "Testing registerNewUser() with paramaters: <br>
+				userName: SeanTaylor# <br>
+				fName: Sean <br>
+				lName: Taylor <br>
+				password: p@ssw0rd <br>";
 		$test6 = new itemDAO(); 
-		$userName = 'SeanTaylor';
+		$userName = 'SeanTaylor7';
 		$fName = 'Sean';
 		$lName = 'Taylor';
 		$password ='p@ssw0rd';
@@ -119,13 +122,44 @@ class TestingScipts{
 		$phoneNo = 2034941111; 
 		$securityQuestion = 'What is your favorite class?';
 		$securityQuestionAns = 'CSC 330';
-		$TESTING6 = $test6->registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns);  
-		$_SESSION['items'] = $TESTING6; 
-		for($i = 0; $i<count($TESTING6); $i++){
-			$item = $TESTING6[$i];
-			echo $item->customerID . " " . $item->fName; 
+		$TESTING6 = $test6->registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns);
+		 #echo "count: ". count($TESTING6). '<br>';
+		 if($TESTING6 == 1){
+		 	echo "Test Worked, User was added Successfully <br>";
+		 	echo "------------------------------------------------------------------------<br>";
+		 }
+		 else {
+		 	echo "<br>Test did not work <br>";
+		 	echo "------------------------------------------------------------------------<br>";
+		 }
+	}
+
+	function test_getCustomerByUserName(){
+		echo "Testing getCustomerByUserName() with previous paramaters";
+		$userName = 'SeanTaylor7';
+		$test7 = new itemDAO();
+		$TESTING7 = $test7->getCustomerByUserName($userName);
+		if($TESTING7 != null){
+			echo "Test worked <br>";
+			echo "<b>Expecting </b><br>
+				  userName: " . $userName . '<br>
+				  fName: Sean <br>';
+			#session_start(); 
+			$_SESSION['items'] = $TESTING7; 
+			for($i = 0; $i<count($TESTING7); $i++){
+		     	$item = $TESTING7[$i];
+		     	echo "<b>Actual Results: </b><br>";
+				echo $item->userName. '<br>';
+				echo $item->fName . '<br>'; 
+				echo '<br>';
+			}
+			echo "------------------------------------------------------------------------<br> ";
 		}
-		echo "test finished";
+		else {
+			echo "Test didnt work <br>";
+			echo "------------------------------------------------------------------------<br>";
+		}
+
 	}
 
 }
