@@ -38,8 +38,19 @@ class shippingDTO{
 	public $shippingState;
 	public $shippingZipcode;
 }
+
+class billingDTO{
+	public $billingID;
+	public $customerID;
+	public $billingAddress;
+	public $billingCity;
+	public $billingState;
+	public $billingZipcode;
+	public $creditCardNo;
+	public $creditCardType;
+	public $creditCardCVC;
+}
 //order
-//shipping info 
-//billing info
+
 
 ?> 
