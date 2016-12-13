@@ -18,7 +18,11 @@
 		if($_SESSION['loggedIn']) {
 			if($_SESSION['employeeAccount'])
 			{
-				echo"<li><a href=''>Employee Settings</a></li>";
+				echo"<li><a href=''>Employee Settings</a></li>
+				<li><a href='./addItemController.php'>Add item</a></li>
+				<li><a href='./removeItemController.php'>Remove item</a></li>
+				<li><a href='./addCategoryController.php'>Add Category</a></li>
+				<li><a href='./removeCategoryController.php'>Remove Category</a></li>";
 			}
 			
 			else{
@@ -38,10 +42,7 @@
 			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
 		}
 		?>
-      <li><a href="./addItemController.php">Add item</a></li>
-      <li><a href="./removeItemController.php">Remove item</a></li>
-      <li><a href="./addCategoryController.php">Add Category</a></li>
-      <li><a href="./removeCategoryController.php">Remove Category</a></li>
+      
     </ul>
     <div class="col-sm-3 col-md-3">
 
