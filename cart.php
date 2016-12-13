@@ -3,6 +3,7 @@
 
 <?php
 echo '<br> <br> <br> <br>';
+session_start(); 
 include("includes/nav.php");
 #session_start();
 #$items = $_SESSION['items']; 
@@ -11,6 +12,7 @@ $itemID = $_GET['itemID'];
  $item_count = count($_SESSION["shopping_cart"]);
  $item_count++; 
  var_dump($item_count);
+
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 if (isset($_POST["add_to_cart"]))
   {

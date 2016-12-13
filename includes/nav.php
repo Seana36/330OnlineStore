@@ -13,9 +13,35 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><a href="./homeController.php">Home</a></li>
-      <li><a href="./loginPage.php">Login/Signup</a></li>
- 
+      <li><a href="./homePage.php">Home</a></li>
+	  <?php
+		if($_SESSION['loggedIn']) {
+			if($_SESSION['employeeAccount'])
+			{
+				echo"<li><a href=''>Employee Settings</a></li>";
+			}
+			
+			else{
+				echo "<li class='dropdown'>
+			<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
+			<span class='caret'></span></a>
+			<ul class='dropdown-menu'>
+				<li><a href='#'>Edit Profile</a></li>
+				<li><a href='#'>Edit Billing</a></li>
+			</ul>
+			</li>";
+			}
+			
+			echo "<li><a href='./logout.php'>Logout</a></li>";
+		}
+		else{
+			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
+		}
+		?>
+      <li><a href="./addItemController.php">Add item</a></li>
+      <li><a href="./removeItemController.php">Remove item</a></li>
+      <li><a href="./addCategoryController.php">Add Category</a></li>
+      <li><a href="./removeCategoryController.php">Remove Category</a></li>
     </ul>
     <div class="col-sm-3 col-md-3">
 
@@ -27,10 +53,8 @@
             </div>
         </div>
         </form>
-        <p>
-          <a href = './cart.php'> <img src = "Pictures/cart.png"</a>
-        </p>
     </div>
     </ul>
-  </div><!-- /.navbar-collapse -->
+  </div>
+  <!-- /.navbar-collapse -->
 </nav>

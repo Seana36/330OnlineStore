@@ -1,23 +1,24 @@
     <?php
         include('./includes/DAOs.php');
-        include('./shippingPage.php');
         require_once('./includes/DTOs.php');
 
         session_start();
 
-        $shipAdd = $_GET"shipAdd"];
-        $shippingCity = $_GET["shippingCity"];
-        $shippingState = $_GET["shippingState"];
-        $shippingZipcode = $_GET["shippingZipcode"];
+        $shipAdd = $_POST["shipAdd"];
+        $shippingCity = $_POST["shippingCity"];
+        $shippingState = $_POST["shippingState"];
+        $shippingZipcode = $_POST["shippingZipcode"];
        
         
-        //The number 6 is customerID. Not sure whats going on with the sessions page. Will eventually have to be changed to whatever user is logged in
-        $check = updateShipping(6, $shipAdd, $shippingCity, $shippingState, $shippingZipcode );
+        $itemDAO = new itemDAO();
+        $check= $itemDAO->updateShipping(6, $shipAdd, $shippingCity, $shippingState, $shippingZipcode );
+
         if($check)
         {
            
             echo "$shipAdd</br>";
             echo "Done";
+            header('location:shippingController.php'); 
         }
         else
         {
