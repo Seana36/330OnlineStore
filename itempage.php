@@ -66,10 +66,14 @@ include("./includes/nav.php");
 <?php
 $query = "SELECT * FROM item ORDER BY itemID ASC";
 $result = mysqli_query($connect, $query);
+$items = $_SESSION['items']; 
+$itemID = $_GET['itemID'];
+echo "<a href = 'cart.php?itemID=". $itemID. "' > Add to Cart </a>";
 ?>
-    <form method = "post" action = "cart.php?action=add&id=">
+<!--     <form method = "post" action = "cart.php?itemID=">
         <input type = "submit" name = "add_to_cart" style = "margin-top: 5px;" class = "btn btn-success" value = "Add to Cart"/>
-    </form>
+    </form> -->
+ 
                 </div>
             </div>
 <!-- <div class="row"> -->

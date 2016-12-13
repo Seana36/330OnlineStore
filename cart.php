@@ -2,19 +2,23 @@
 <!-- SELECT i.itemName, i.image FROM item i, cart c where i.itemID = c.itemID AND c.customerID = $_SESSION['customerID']-->
 
 <?php
+echo '<br> <br> <br> <br>';
 include("includes/nav.php");
-session_start();
+#session_start();
+#$items = $_SESSION['items']; 
+$itemID = $_GET['itemID'];
+ echo "Item ID: ". $itemID; 
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 if (isset($_POST["add_to_cart"]))
   {
     if (isset($_SESSION["shopping_cart"]))
       {
         $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        if (!in_array($_GET["id"], $item_array_id))
+        if (!in_array($_GET["itemID"], $item_array_id))
           {
             #//Gets here when I click on the button 
             $count = count($_SESSION["shopping_cart"]);
-            $item_array = array('itemID' => $_GET["id"], 
+            $item_array = array('itemID' => $_GET["itemID"], 
                                 'itemName' => $_POST["hidden_name"], 
                                 'regularPrice' => $_POST["hidden_price"], 
                                 'quantity' => $_POST["quantity"]
@@ -30,7 +34,7 @@ if (isset($_POST["add_to_cart"]))
       }
       else
         {
-          $item_array = array('itemID' => $_GET["id"], 
+          $item_array = array('itemID' => $_GET["itemID"], 
                               'itemName' => $_POST["hidden_name"], 
                               'regularPrice' => $_POST["hidden_price"],
                               'quantity' => $_POST["quantity"]

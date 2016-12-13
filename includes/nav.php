@@ -18,6 +18,7 @@
  
     </ul>
     <div class="col-sm-3 col-md-3">
+
         <form class="navbar-form" role="search" action = "./searchResultsController.php" method="post">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="searchBar">
