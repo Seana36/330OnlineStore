@@ -74,6 +74,7 @@ include("./includes/nav.php");
             </div>
 <!-- CART -->
 <?php
+$connect = mysqli_connect("localhost", "root", "", "storedatabase");
 $query = "SELECT * FROM item ORDER BY itemID ASC";
 $result = mysqli_query($connect, $query);
 $items = $_SESSION['items']; 
