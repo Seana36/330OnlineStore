@@ -3,7 +3,7 @@ require "./includes/dbConnect.php";
 session_start();
 $username = $_POST["username"];
 $password = $_POST["password"]; 
-$sql = "SELECT username, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')"; 
+$sql = "SELECT fName, lName, customerID FROM customer WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')"; 
 $result = $conn->query($sql);
 if (!$result){
 	die("query failed" . $conn->error);

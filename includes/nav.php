@@ -38,7 +38,6 @@
 			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
 		}
 		?>
-      <li><a href="./loginPage.php">Login/Signup</a></li>
       <li><a href="./addItemController.php">Add item</a></li>
       <li><a href="./removeItemController.php">Remove item</a></li>
       <li><a href="./addCategoryController.php">Add Category</a></li>

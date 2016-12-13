@@ -16,49 +16,49 @@ if(!empty($username) AND !empty($password))
 {
 	if(!empty($newusername))
 	{
-		$sql = "UPDATE customer SET username = '$newusername' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET userName = '$newusername' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newpassword))
 	{
-		$sql = "UPDATE customer SET password = '$newpassword' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET password = '$newpassword' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newfname))
 	{
-		$sql = "UPDATE customer SET fName = '$newfname' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET fName = '$newfname' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newlname))
 	{
-		$sql = "UPDATE customer SET lName = '$newlname' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET lName = '$newlname' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newEmail))
 	{
-		$sql = "UPDATE customer SET  email = '$newEmail' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET  email = '$newEmail' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newPhoneNo))
 	{
-		$sql = "UPDATE customer SET phoneNo = '$newPhoneNo' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET phoneNo = '$newPhoneNo' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newSecQ))
 	{
-		$sql = "UPDATE customer SET securityQuestion = '$newSecQ' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET securityQuestion = '$newSecQ' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	
 	if(!empty($newSecAns))
 	{
-		$sql = "UPDATE customer SET securityQuestionAns = '$newSecAns' WHERE customerID = (SELECT customerID FROM customer WHERE username = '$username' AND password ='$password')";
+		$sql = "UPDATE customer SET securityQuestionAns = '$newSecAns' WHERE customerID = (SELECT customerID FROM customer WHERE userName = '$username' AND password ='$password')";
 		$result = $conn->query($sql);
 	}
 	header("Location:editProfilePage.php");
