@@ -32,7 +32,7 @@ include("./includes/navLoggedIn.php");
                 <p class="lead">User Account</p>
                 <div class="list-group">
                     <a href="/330OnlineStore/shippingController.php" class="list-group-item active">Edit Shipping</a>
-                    <a href="#" class="list-group-item">Edit Billing</a>
+                    <a href="/330OnlineStore/billingController.php" class="list-group-item">Edit Billing</a>
                     <a href="#" class="list-group-item">Update Password</a>
                 </div>
             </div>
