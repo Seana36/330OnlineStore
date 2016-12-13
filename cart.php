@@ -8,6 +8,9 @@ include("includes/nav.php");
 #$items = $_SESSION['items']; 
 $itemID = $_GET['itemID'];
  echo "Item ID: ". $itemID; 
+ $item_count = count($_SESSION["shopping_cart"]);
+ $item_count++; 
+ var_dump($item_count);
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 if (isset($_POST["add_to_cart"]))
   {
@@ -24,6 +27,7 @@ if (isset($_POST["add_to_cart"]))
                                 'quantity' => $_POST["quantity"]
                                 );
             $_SESSION["shopping_cart"][$count] = $item_array;
+            $item_count ++;  
             echo '<script> alert("Item SOMETHING HERE") </script>';
           }
           else
@@ -34,13 +38,34 @@ if (isset($_POST["add_to_cart"]))
       }
       else
         {
+          //add item here when on cart.php page 
+          
           $item_array = array('itemID' => $_GET["itemID"], 
                               'itemName' => $_POST["hidden_name"], 
                               'regularPrice' => $_POST["hidden_price"],
                               'quantity' => $_POST["quantity"]
                               );
           $_SESSION["shopping_cart"][0] = $item_array;
+          $item_count++; 
+          echo '<script> alert("In else 2") </script>';
         }
+  }
+  else {
+    echo '<script> alert("In else 3") </script>';
+   
+    $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
+    $result = $connect->query($sql);
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        $item_array = array('itemID' => $_GET["itemID"], 
+                              'itemName' => $row['itemName'], 
+                              'regularPrice' => $row['regularPrice'],
+                              'quantity' => 1
+                              );
+          $_SESSION["shopping_cart"][$item_count] = $item_array;
+          $item_count++;
+      }
+    }
   }
   if (isset($_GET["action"]))
     {
@@ -80,13 +105,13 @@ if (isset($_POST["add_to_cart"]))
                 {
       ?>
       <div class = "col-md-4">
-        <form method = "post" action = "cart.php?action=add&id=<?php echo $row["itemID"];?>">
+        <form method = "post" action = "cart.php?itemID=<?php echo $row["itemID"];?>">
           <div style = "border: 1px solid #333; background-color: #f1f1f1; border-radius: 5px; padding: 16px;" align = "center">
             <img src = "<?php echo $row["image"];?>" class = "img-responsive"/> <br/>
               <h4 class = "text-info"><?php echo $row["itemName"];?> </h4>
                 <h4 class = "text-danger">$ <?php echo $row["regularPrice"];?> </h4>
                   <input type = "text" name = "quantity" class = "form-control" value = "1"/>
-                    <input type = "hidden" name = "hidden_name" value = "<?php echo $row["image"];?>"/>
+                    <input type = "hidden" name = "hidden_name" value = "<?php echo $row["itemName"];?>"/>
                       <input type = "hidden" name = "hidden_price" value = "<?php echo $row["regularPrice"];?>"/>
                         <input type = "submit" name = "add_to_cart" style = "margin-top: 5px;" class = "btn btn-success" value = "Add to Cart"/>
           </div>
@@ -115,7 +140,7 @@ if (isset($_POST["add_to_cart"]))
                                foreach($_SESSION["shopping_cart"] as $keys => $values)  
                                # var_dump($values);
                                # var_dump($keys);
-                               # var_dump($_SESSION["shopping_cart"]);
+                                var_dump($_SESSION["shopping_cart"]);
                                {  
                           ?>  
                           <tr>  
