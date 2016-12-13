@@ -72,7 +72,14 @@ include("./includes/nav.php");
                         ?>
                 </div>
             </div>
-
+<!-- CART -->
+<?php
+$query = "SELECT * FROM item ORDER BY itemID ASC";
+$result = mysqli_query($connect, $query);
+$items = $_SESSION['items']; 
+$itemID = $_GET['itemID'];
+echo "<a href = 'cart.php?itemID=". $itemID. "' > Add to Cart </a>";
+?>
             
 
                 <!-- <div class="row"> -->
