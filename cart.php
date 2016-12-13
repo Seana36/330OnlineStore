@@ -11,7 +11,7 @@ $itemID = $_GET['itemID'];
  echo "Item ID: ". $itemID; 
  $item_count = count($_SESSION["shopping_cart"]);
  $item_count++; 
- var_dump($item_count);
+# var_dump($item_count);
 
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 if (isset($_POST["add_to_cart"]))
@@ -106,8 +106,8 @@ if (isset($_POST["add_to_cart"]))
               while ($row = mysqli_fetch_array($result))
                 {
       ?>
-      <div class = "col-md-4">
-        <form method = "post" action = "cart.php?itemID=<?php echo $row["itemID"];?>">
+       <div class = "col-md-4">
+<!--         <form method = "post" action = "cart.php?itemID=<?php echo $row["itemID"];?>">
           <div style = "border: 1px solid #333; background-color: #f1f1f1; border-radius: 5px; padding: 16px;" align = "center">
             <img src = "<?php echo $row["image"];?>" class = "img-responsive"/> <br/>
               <h4 class = "text-info"><?php echo $row["itemName"];?> </h4>
@@ -116,8 +116,8 @@ if (isset($_POST["add_to_cart"]))
                     <input type = "hidden" name = "hidden_name" value = "<?php echo $row["itemName"];?>"/>
                       <input type = "hidden" name = "hidden_price" value = "<?php echo $row["regularPrice"];?>"/>
                         <input type = "submit" name = "add_to_cart" style = "margin-top: 5px;" class = "btn btn-success" value = "Add to Cart"/>
-          </div>
-        </form>
+          </div> 
+        </form> -->
       </div>
       <?php
                 }
@@ -142,7 +142,7 @@ if (isset($_POST["add_to_cart"]))
                                foreach($_SESSION["shopping_cart"] as $keys => $values)  
                                # var_dump($values);
                                # var_dump($keys);
-                                var_dump($_SESSION["shopping_cart"]);
+                               # var_dump($_SESSION["shopping_cart"]);
                                {  
                           ?>  
                           <tr>  
