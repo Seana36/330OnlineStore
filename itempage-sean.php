@@ -1,7 +1,10 @@
 <?php 
-include('./includes/DTOs.php');
+include('./includes/DAOs.php');
+require_once('./includes/DTOs.php');
 session_start();
-$connect = mysqli_connect("localhost", "root", "", "storedatabase");
+$itemDAO = new itemDAO(); 
+$categories = $itemDAO->getAllCategories();
+$_SESSION['categories'] = $categories; 
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,20 +62,21 @@ include("./includes/nav.php");
             <div class="col-md-3">
                 <p class="lead">Wam-Bam-Azon</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-<!-- CART -->
-<?php
-$query = "SELECT * FROM item ORDER BY itemID ASC";
-$result = mysqli_query($connect, $query);
-?>
-    <form method = "post" action = "cart.php?action=add&id=">
-        <input type = "submit" name = "add_to_cart" style = "margin-top: 5px;" class = "btn btn-success" value = "Add to Cart"/>
-    </form>
+                        <?php
+                            $categories = $_SESSION['categories'];
+                            for($i = 0; $i < count($categories); $i++)
+                            {
+                                $category = $categories[$i];
+                                echo "<a href='#' class='list-group-item'>".$category->categoryName."</a>";
+                            }
+                        ?>
                 </div>
             </div>
-<!-- <div class="row"> -->
+
+            
+
+                <!-- <div class="row"> -->
+
 <?php 
 
 
@@ -85,7 +89,7 @@ $itemID = $_GET['itemID'];
                         echo "<img src='". $item->image . "' alt='Item Picture' style='width:600px;height:400px;'/>"; 
                         echo "<div class='caption'> ";
                             echo "<h4 class='pull-right'> Price: $" . $item->regularPrice. "</h4>"; 
-                            echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a> </h4> ";
+                            echo "<h4><a href='itempage.php?itemID=" .$item->itemID. "' >".  $item->itemName. "</a> </h4> "; 
                             echo "<p>" . $item->itemDescription ;
                         echo "</div> ";
                         echo "<div class='ratings'> "; 

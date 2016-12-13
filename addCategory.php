@@ -61,62 +61,23 @@ session_start();
     <div class="container">
 <!-- Adding Item -->
 
-    <form class="form-horizontal" action="addPageComplete.php" method="get"> <!-- Form Style -->
-        <!-- Item Name Field -->
+    <form class="form-horizontal" action="addCategoryComplete.php" method="post"> <!-- Form Style -->
+        <!-- Category Name Field -->
         <div class="form-group">
-            <label class="control-label col-sm-2" for="itemName">Item Name:</label>
+            <label class="control-label col-sm-2" for="categoryName">Category Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="itemName" name="itemName" placeholder="Enter Item Name">
+                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Enter Item Name">
             </div>
         </div>
 
-        <!-- Item Desc Field -->
+        <!-- Category Desc Field -->
         <div class="form-group">
-            <label class="control-label col-sm-2" for="itemDesc">Description:</label>
+            <label class="control-label col-sm-2" for="categoryDesc">Description:</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="5" id="itemDesc" name="itemDesc" placeholder="Item Description"></textarea>
+                <textarea class="form-control" rows="5" id="categoryDesc" name="categoryDesc" placeholder="Item Description"></textarea>
             </div>
         </div>
 
-        <!-- Price Field -->
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="regPrice">Price: $</label>
-            <div class="col-sm-2">
-                <!-- Pattern = Numbers 0-9 + .Numbers 0.9 where decimals step from anynumbers.twodecimals-->
-                <input type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" class="form-control" id="regPrice" name="regPrice" placeholder="Price">
-            </div>
-        </div>
-        
-        <!-- Category Field -->
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="category">Select Category:</label>
-            <div class="col-sm-2">
-                <select class="form-control" id="category" name="category">
-                    <?php
-                    $categories = $_SESSION['categories'];
-                    for($i = 0; $i < count($categories); $i++)
-                    {
-                        $category = $categories[$i];
-                        echo "<option>" .$category->categoryName. "</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
-        <!-- Broken Image
-        <!-- Image Field
-        <div class"form-group">
-            <div class="fileupload fileupload-new" data-provides="fileupload">
-                <span class="btn btn-primary btn-file">
-                    <span class="fileupload-new">Select file</span>
-                    <span class="fileupload-exists">Change</span>
-                    <input type="file" />
-                </span>
-                <span class="fileupload-preview"></span>
-                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
-            </div>
-        </div>
-        -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Submit</button>

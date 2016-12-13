@@ -13,7 +13,7 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><a href="./homeController.php">Home</a></li>
+      <li><a href="./homePage.php">Home</a></li>
 	  <?php
 		if($_SESSION['loggedIn']) {
 			if($_SESSION['employeeAccount'])
@@ -26,7 +26,7 @@
 			<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
 			<span class='caret'></span></a>
 			<ul class='dropdown-menu'>
-				<li><a href='editProfilePage.php'>Edit Profile</a></li>
+				<li><a href='#'>Edit Profile</a></li>
 				<li><a href='#'>Edit Billing</a></li>
 			</ul>
 			</li>";
@@ -38,10 +38,10 @@
 			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
 		}
 		?>
-      <li><a href="./addPageController.php">Add item</a></li>
-      <li><a href="./removePageController.php">Remove item</a></li>
-      <li><a href="./loginPage.php">Login/Signup</a></li>
- 
+      <li><a href="./addItemController.php">Add item</a></li>
+      <li><a href="./removeItemController.php">Remove item</a></li>
+      <li><a href="./addCategoryController.php">Add Category</a></li>
+      <li><a href="./removeCategoryController.php">Remove Category</a></li>
     </ul>
     <div class="col-sm-3 col-md-3">
         <form class="navbar-form" role="search" action = "./searchResultsController.php" method="post">
@@ -52,10 +52,8 @@
             </div>
         </div>
         </form>
-        <p>
-          <a href = './cart.php'> <img src = "Pictures/cart.png"</a>
-        </p>
     </div>
     </ul>
-  </div><!-- /.navbar-collapse -->
+  </div>
+  <!-- /.navbar-collapse -->
 </nav>

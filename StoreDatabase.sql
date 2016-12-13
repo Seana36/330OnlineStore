@@ -4,7 +4,7 @@ USE StoreDatabase;
 
 DROP TABLE IF EXISTS Category;
 CREATE TABLE IF NOT EXISTS Category (
-  categoryID Integer NOT NULL, 
+  categoryID Integer NOT NULL AUTO_INCREMENT, 
   details VARCHAR(100), 
   categoryName VARCHAR(50), 
   PRIMARY KEY (categoryID)

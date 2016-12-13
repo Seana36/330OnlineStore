@@ -62,13 +62,13 @@ session_start();
     <div class="container">
 <!-- Providing response to item -->
     <?php
-        $itemName = $_GET['item'];
-        $sql = "DELETE FROM item WHERE itemName = '$itemName'";
-        $sqlCheck = "SELECT * FROM item WHERE itemName = '$itemName'";
+        $categoryName = $_POST['category'];
+        $sql = "DELETE FROM category WHERE categoryName = '$categoryName'";
+        $sqlCheck = "SELECT * FROM category WHERE categoryName = '$categoryName'";
         $done = removeFromDB($sql, $sqlCheck);
         if($done)
         {
-            echo "$itemName </br>";
+            echo "$categoryName </br>";
             echo "Done";
         }
         else

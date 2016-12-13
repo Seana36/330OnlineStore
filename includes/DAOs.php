@@ -199,16 +199,51 @@ class itemDAO{
         {
             $customer = new customerDTO();
             $customer->customerID = $row["customerID"];
-            $customer->fname = $row["fname"];
-            $customer->lname = $row["lname"];
+            $customer->fName = $row["fName"];
+            $customer->lName = $row["lName"];
             $customer->userName = $row["userName"];
             $customer->password = $row["password"];
             $customer->email = $row["email"];
             $customer->phoneNo = $row["phoneNo"];
-            $customer->securityQuestion = $row["SecurityQuestion"];
-            $customer->securityQuestionAns = $row["SecurityQuestionAns"];
+            $customer->securityQuestion = $row["securityQuestion"];
+            $customer->securityQuestionAns = $row["securityQuestionAns"];
+             array_push($customerArray, $customer); 
         }
-        return $customer;
+        return $customerArray;
+    }
+
+    public function getShippingByID($searchFor)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+        $shippingArray = array();
+        $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc())
+        {
+            $shipping = new shippingDTO();
+            $shipping->shippingID = $row["shippingID"];
+            $shipping->customerID = $row["customerID"];
+            $shipping->shipAdd = $row["shipAdd"];
+            $shipping->shippingCity = $row["shippingCity"];
+            $shipping->shippingState = $row["shippingState"];
+            $shipping->shippingZipcode= $row["shippingZipcode"];
+           
+             array_push($shippingArray, $shipping); 
+        }
+        return $shippingArray;
     }
 
     public function getSearchResults($searchFor){
@@ -326,13 +361,13 @@ class itemDAO{
     }
 
     public function registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns){
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "StoreDatabase";
+        $servername1 = "localhost";
+        $username1 = "root";
+        $password1 = "";
+        $dbname1 = "StoreDatabase";
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername1, $username1, $password1, $dbname1);
         // Check connection
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -348,19 +383,96 @@ class itemDAO{
         if (!$result)
         {
             die("query failed" . $conn->error);
+            
         }
         $entry = $result->fetch_row();
         if($entry)
         {
             echo "User already exists";
+            return false; 
         }
         else
         {
             $query = "INSERT INTO`customer`( `fName`, `lName`, `userName`, `password`, `email`, `phoneNo`, `securityQuestion`, `securityQuestionAns`) VALUES('$fName', '$lName', '$userName', '$password', '$email', $phoneNo, '$securityQuestion', '$securityQuestionAns')";
+            
             if (!$conn->query($query)){
                 die("query1 failed:" . $conn->error);
+                return false; 
             }
+            return true; 
         }
     }
+
+    public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+
+
+
+        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd' WHERE customerID='$customerID');";
+
+        if (mysqli_query($conn, $sql)) {
+            //echo "Record updated successfully";
+            }           
+            else {
+             echo "Error updating record: " . mysqli_error($conn);
+            }        
+    }
+
+    public function getCustomerbyUserName($searchFor){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else{   
+            echo "";
+        } 
+        $customerArray = array();
+        $sql = "SELECT * FROM Customer WHERE userName = '$searchFor';";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc())
+        {
+            $customer = new customerDTO();
+            $customer->customerID = $row["customerID"];
+            $customer->fName = $row["fName"];
+            $customer->lName = $row["lName"];
+            $customer->userName = $row["userName"];
+            $customer->password = $row["password"];
+            $customer->email = $row["email"];
+            $customer->phoneNo = $row["phoneNo"];
+            $customer->securityQuestion = $row["securityQuestion"];
+            $customer->securityQuestionAns = $row["securityQuestionAns"];
+             array_push($customerArray, $customer); 
+        }
+        return $customerArray;
+
+    }
+
+    #shipAdd, shippingCity, shippingState, shippingZipcode
+
+
+
+
+
+
   }  
 ?>

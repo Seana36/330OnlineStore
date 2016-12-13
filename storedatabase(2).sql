@@ -120,7 +120,7 @@ INSERT INTO `cart` (`customerID`, `itemID`, `orderID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `categoryID` int(11) NOT NULL,
+  `categoryID` int(11) NOT NULL AUTO_INCREMENT,
   `details` varchar(100) DEFAULT NULL,
   `categoryName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
