@@ -12,13 +12,15 @@ if (isset($_POST["add_to_cart"]))
         $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
         if (!in_array($_GET["id"], $item_array_id))
           {
+            #//Gets here when I click on the button 
             $count = count($_SESSION["shopping_cart"]);
             $item_array = array('itemID' => $_GET["id"], 
-                                `itemName` => $_POST["hidden_name"], 
-                                `regularPrice` => $_POST["hidden_price"], 
+                                'itemName' => $_POST["hidden_name"], 
+                                'regularPrice' => $_POST["hidden_price"], 
                                 'quantity' => $_POST["quantity"]
                                 );
             $_SESSION["shopping_cart"][$count] = $item_array;
+            echo '<script> alert("Item SOMETHING HERE") </script>';
           }
           else
             {
@@ -29,8 +31,8 @@ if (isset($_POST["add_to_cart"]))
       else
         {
           $item_array = array('itemID' => $_GET["id"], 
-                              `itemName` => $_POST["hidden_name"], 
-                              `regularPrice` => $_POST["hidden_price"], 
+                              'itemName' => $_POST["hidden_name"], 
+                              'regularPrice' => $_POST["hidden_price"],
                               'quantity' => $_POST["quantity"]
                               );
           $_SESSION["shopping_cart"][0] = $item_array;
@@ -107,18 +109,20 @@ if (isset($_POST["add_to_cart"]))
                           {  
                                $total = 0;  
                                foreach($_SESSION["shopping_cart"] as $keys => $values)  
-                                var_dump($values);
+                               # var_dump($values);
+                               # var_dump($keys);
+                               # var_dump($_SESSION["shopping_cart"]);
                                {  
                           ?>  
                           <tr>  
-                               <td><?php echo $values["item_name"]; ?></td>  
-                               <td><?php echo $values["item_quantity"]; ?></td>  
-                               <td>$ <?php echo $values["item_price"]; ?></td>  
-                               <td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2); ?></td>  
-                               <td><a href="cart.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
+                               <td><?php echo $values["itemName"]; ?></td>  
+                               <td><?php echo $values["quantity"]; ?></td>  
+                               <td>$ <?php echo $values["regularPrice"]; ?></td>  
+                               <td>$ <?php echo number_format($values["quantity"] * $values["regularPrice"], 2); ?></td>  
+                               <td><a href="cart.php?action=delete&id=<?php echo $values["itemID"]; ?>"><span class="text-danger">Remove</span></a></td>  
                           </tr>  
                           <?php  
-                                    $total = $total + ($values["item_quantity"] * $values["item_price"]);  
+                                    $total = $total + ($values["quantity"] * $values["regularPrice"]);  
                                }  
                           ?>  
                           <tr>  
