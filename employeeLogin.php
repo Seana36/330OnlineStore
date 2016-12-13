@@ -21,7 +21,7 @@ header('Location:homePage.php');
 else
 {
 	
-	header('Location:employeeLogin.php');
+	header('Location:employeeLoginPage.php');
 	echo"<p style = 'color:red'>Incorrect login.</p>";
 }
 
