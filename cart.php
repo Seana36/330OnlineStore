@@ -2,8 +2,8 @@
 <!-- SELECT i.itemName, i.image FROM item i, cart c where i.itemID = c.itemID AND c.customerID = $_SESSION['customerID']-->
 
 <?php
-include("includes/nav.php");
 session_start();
+include("includes/nav.php");
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 if (isset($_POST["add_to_cart"]))
   {
