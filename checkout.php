@@ -129,6 +129,9 @@ session_start();
                   <th width = "20%"> Zip </th>
                 </tr>
       <?php
+     # var_dump($_SESSION['shopping_cart']);
+     # var_dump($_SESSION['shippingInfo']);
+     # var_dump($_SESSION['billingInfo']);
         if (!empty($_SESSION["shippingInfo"]))  
           {  
                
@@ -188,8 +191,8 @@ session_start();
 </div> 
 
 <?php 
-var_dump($_SESSION['billingInfo']);
-var_dump($_SESSION['shippingInfo']);
+#var_dump($_SESSION['billingInfo']);
+#var_dump($_SESSION['shippingInfo']);
 ?>
 <form action="submitController.php" method="get">
 	<button type="submit" class="btn btn-info" >Submit Order </button>

@@ -245,7 +245,7 @@ class itemDAO{
             $shipping->lName =$row['lName'];
              array_push($shippingArray, $shipping); 
         }
-        return $shipping;
+        return $shippingArray;
     }
 
      public function getBillingByID($searchFor)
@@ -286,7 +286,7 @@ class itemDAO{
            
              array_push($billingArray, $billing); 
         }
-        return $billing;
+        return $billingArray;
     }
 
 

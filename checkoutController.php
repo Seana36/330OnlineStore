@@ -8,9 +8,9 @@
 	$customer = $_SESSION['customer'] ;
 	#var_dump($_SESSION['customer']);
 	#for($i = 0; $i<count($customer); $i++){
-     #       $cust = $customer[$i];
+     #      $cust = $customer[$i];
 	#		$custID = $cust->customerID; 
-#		}
+	#	}
 
 	$customerShipping = $itemDAO->getShippingByID($customer);
 	$_SESSION['shippingInfo'] = $customerShipping;
