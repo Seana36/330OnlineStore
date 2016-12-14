@@ -3,12 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2016 at 05:29 PM
+-- Generation Time: Dec 14, 2016 at 10:40 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 CREATE DATABASE IF NOT EXISTS StoreDatabase;
 USE StoreDatabase;
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -53,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `billinginformation` (
   `billingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
   `billingAddress` varchar(50) DEFAULT NULL,
-    billingCity varchar(10) DEFAULT NULL,
-  billingState varchar(10) DEFAULT NULL,
-  billingZipcode int(6) DEFAULT NULL,
+  `billingCity` varchar(10) DEFAULT NULL,
+  `billingState` varchar(10) DEFAULT NULL,
+  `billingZipcode` int(6) DEFAULT NULL,
   `creditCardNo` int(11) DEFAULT NULL,
   `creditCardType` varchar(10) DEFAULT NULL,
   `creditCardCVC` int(11) DEFAULT NULL,
@@ -67,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `billinginformation` (
 -- Dumping data for table `billinginformation`
 --
 
-INSERT INTO `billinginformation` (`billingID`, `customerID`, `billingAddress`, `creditCardNo`, `creditCardType`, `creditCardCVC`) VALUES
-(1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `billinginformation` (`billingID`, `customerID`, `billingAddress`, `billingCity`, `billingState`, `billingZipcode`, `creditCardNo`, `creditCardType`, `creditCardCVC`) VALUES
+(1, 1, '7890', 'New Haven', 'CT', 6515, 1111111111, 'VISA', 123);
 
 -- --------------------------------------------------------
 
@@ -97,21 +96,12 @@ INSERT INTO `cancelledorders` (`orderID`, `customerID`, `status`) VALUES
 -- Table structure for table `cart`
 --
 
-CREATE TABLE IF NOT EXISTS `cart` (
-  `customerID` int(11) NOT NULL AUTO_INCREMENT,
-  `itemID` int(11) DEFAULT NULL,
-  `orderID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`customerID`),
-  KEY `orderID` (`orderID`),
-  KEY `itemID` (`itemID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`customerID`, `itemID`, `orderID`) VALUES
-(1, 1, NULL);
+
 
 -- --------------------------------------------------------
 
@@ -120,7 +110,7 @@ INSERT INTO `cart` (`customerID`, `itemID`, `orderID`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `categoryID` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryID` int(11) NOT NULL,
   `details` varchar(100) DEFAULT NULL,
   `categoryName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
@@ -145,14 +135,14 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
   `fName` varchar(15) NOT NULL,
   `lName` varchar(15) NOT NULL,
-  `userName` varchar(10) NOT NULL,
+  `userName` varchar(50) NOT NULL,
   `password` varchar(10) NOT NULL,
   `email` varchar(15) DEFAULT NULL,
   `phoneNo` int(11) DEFAULT NULL,
   `securityQuestion` varchar(20) NOT NULL,
   `securityQuestionAns` varchar(20) NOT NULL,
   PRIMARY KEY (`customerID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `customer`
@@ -160,7 +150,12 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`customerID`, `fName`, `lName`, `userName`, `password`, `email`, `phoneNo`, `securityQuestion`, `securityQuestionAns`) VALUES
 (1, 'Johnny', 'Karate', 'JKarate', 'password', 'something@karat', 1, 'What is your favorit', 'Karate'),
-(5, 'hj;', 'h;lj', 'jhlk', '', 'h;j', 7890, 'hj;k', 'hj;');
+(5, 'hj;', 'h;lj', 'jhlk', '', 'h;j', 7890, 'hj;k', 'hj;'),
+(14, 'Sean', 'Taylor', 'SeanTaylor', '', 'something@gmail', 2034941111, 'What is your favorit', 'CSC 330'),
+(15, 'Sean', 'Taylor', 'SeanTaylor', '', 'something@gmail', 2034941111, 'What is your favorit', 'CSC 330'),
+(16, 'Sean', 'Taylor', 'SeanTaylor4', 'p@ssw0rd', 'something@gmail', 2034941111, 'What is your favorit', 'CSC 330'),
+(17, 'Sean', 'Taylor', 'SeanTaylor6', 'p@ssw0rd', 'something@gmail', 2034941111, 'What is your favorit', 'CSC 330'),
+(18, 'Sean', 'Taylor', 'SeanTaylor7', 'p@ssw0rd', 'something@gmail', 2034941111, 'What is your favorit', 'CSC 330');
 
 -- --------------------------------------------------------
 
@@ -262,55 +257,24 @@ INSERT INTO `item` (`itemID`, `itemName`, `itemDescription`, `regularPrice`, `sa
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
-  `orderID` int(11) NOT NULL,
-  `customerID` int(11) NOT NULL,
-  `orderDate` datetime DEFAULT NULL,
+  `orderID` int(11) NOT NULL AUTO_INCREMENT,
   `itemID` int(11) NOT NULL,
   `quantity` int(10) NOT NULL,
+  `orderDate` datetime DEFAULT NULL,
   `status` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`orderID`,`itemID`),
-  KEY `customerID` (`customerID`),
-  KEY `itemID` (`itemID`)
+  `customerID` int(11) NOT NULL,
+  `billingID` int(11) NOT NULL, 
+  `shippingID` int(11) NOT NULL, 
+  PRIMARY KEY (`orderID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`orderID`, `customerID`, `orderDate`, `itemID`, `quantity`, `status`) VALUES
-(1, 1, '0000-00-00 00:00:00', 2, 1, 'Preship'),
-(1, 1, '0000-00-00 00:00:00', 5, 2, 'Preship'),
-(1, 1, '0000-00-00 00:00:00', 10, 1, 'Preship'),
-(1, 1, '0000-00-00 00:00:00', 15, 2, 'Preship'),
-(1, 1, '0000-00-00 00:00:00', 25, 1, 'Preship');
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `orderlist`
---
-
-CREATE TABLE IF NOT EXISTS `orderlist` (
-  `orderListID` int(11) NOT NULL AUTO_INCREMENT,
-  `orderID` int(11) NOT NULL,
-  `customerID` int(11) NOT NULL,
-  `orderDate` datetime DEFAULT NULL,
-  `status` varchar(50) DEFAULT NULL,
-  `billingID` int(11) NOT NULL,
-  `shippingID` int(11) NOT NULL,
-  PRIMARY KEY (`orderListID`),
-  KEY `customerID` (`customerID`),
-  KEY `billingID` (`billingID`),
-  KEY `shippingID` (`shippingID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `orderlist`
---
-
-INSERT INTO `orderlist` (`orderListID`, `orderID`, `customerID`, `orderDate`, `status`, `billingID`, `shippingID`) VALUES
-(1, 0, 1, NULL, NULL, 1, 1),
-(2, 0, 1, NULL, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -318,14 +282,13 @@ INSERT INTO `orderlist` (`orderListID`, `orderID`, `customerID`, `orderDate`, `s
 -- Table structure for table `shippinginformation`
 --
 
-
 CREATE TABLE IF NOT EXISTS `shippinginformation` (
   `shippingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
   `shipAdd` varchar(30) DEFAULT NULL,
-  shippingCity varchar(10) DEFAULT NULL,
-  shippingState varchar(10) DEFAULT NULL,
-  shippingZipcode int(6) DEFAULT NULL,
+  `shippingCity` varchar(10) DEFAULT NULL,
+  `shippingState` varchar(10) DEFAULT NULL,
+  `shippingZipcode` int(6) DEFAULT NULL,
   PRIMARY KEY (`shippingID`),
   KEY `customerID` (`customerID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -334,8 +297,8 @@ CREATE TABLE IF NOT EXISTS `shippinginformation` (
 -- Dumping data for table `shippinginformation`
 --
 
-INSERT INTO `shippinginformation` (`shippingID`, `customerID`, `shipAdd`) VALUES
-(1, 1, NULL);
+INSERT INTO `shippinginformation` (`shippingID`, `customerID`, `shipAdd`, `shippingCity`, `shippingState`, `shippingZipcode`) VALUES
+(1, 1, '123', 'New Haven', 'CT', 6515);
 
 --
 -- Constraints for dumped tables
@@ -356,9 +319,7 @@ ALTER TABLE `cancelledorders`
 --
 -- Constraints for table `cart`
 --
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`orderID`) REFERENCES `order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`itemID`) REFERENCES `item` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 --
 -- Constraints for table `item`
@@ -369,18 +330,6 @@ ALTER TABLE `item`
 --
 -- Constraints for table `order`
 --
-ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`orderID`) REFERENCES `orderlist` (`orderListID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`itemID`) REFERENCES `item` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `orderlist`
---
-ALTER TABLE `orderlist`
-  ADD CONSTRAINT `orderlist_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orderlist_ibfk_2` FOREIGN KEY (`billingID`) REFERENCES `billinginformation` (`billingID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orderlist_ibfk_3` FOREIGN KEY (`shippingID`) REFERENCES `shippinginformation` (`shippingID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `shippinginformation`
@@ -391,3 +340,9 @@ ALTER TABLE `shippinginformation`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+ALTER TABLE `order` ADD FOREIGN KEY (customerID) REFERENCES customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `order` ADD FOREIGN KEY (billingID) REFERENCES billinginformation(billingID) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `order` ADD FOREIGN KEY (shippingID) REFERENCES shippinginformation(shippingID) ON DELETE CASCADE ON UPDATE CASCADE;
