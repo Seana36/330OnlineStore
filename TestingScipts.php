@@ -43,14 +43,27 @@ class TestingScipts{
 	}
 
 	function test_getCustomerByID(){
-#		$test3 = new itemDAO(); 
-#		$TESTING3 = $test3->getAllItems(1);
-#		if ($customer->customerID == 1){
-#			echo "I think it worked";
-#		}
-#		else {
-#			echo "didnt work"; 
-#		}
+		$test3 = new itemDAO(); 
+		$TESTING3 = $test3->getCustomerByID(1);
+		if($TESTING3->customerID == 1)
+		{
+			echo "Testing getCustomerByID()<br>";
+			echo "Test worked<br>";
+			echo "Expecting ID 1 in object<br>";
+			echo "Received: $TESTING3->customerID <br>";
+			echo "First: $TESTING3->fName<br>";
+			echo "Last: $TESTING3->lName<br>";
+			echo "Userame: $TESTING3->userName<br>";
+			echo "Password: $TESTING3->password<br>";
+			echo "Email: $TESTING3->email<br>";
+			echo "Phone: $TESTING3->phoneNo<br>";
+			echo "Security Question: $TESTING3->securityQuestion<br>";
+			echo "Security Answer: $TESTING3->securityQuestionAns<br>";
+			echo "------------------------------------------------------------------------<br>";
+		}
+		else
+		{
+		}
 	}
 
 	function test_getSearchResults(){
@@ -109,7 +122,7 @@ class TestingScipts{
 
 	function test_registerNewUser(){
 		echo "Testing registerNewUser() with paramaters: <br>
-				userName: SeanTaylor# <br>
+				userName: SeanTaylor7 <br>
 				fName: Sean <br>
 				lName: Taylor <br>
 				password: p@ssw0rd <br>";
@@ -124,7 +137,7 @@ class TestingScipts{
 		$securityQuestionAns = 'CSC 330';
 		$TESTING6 = $test6->registerNewUser($userName, $fName, $lName, $password, $email, $phoneNo, $securityQuestion, $securityQuestionAns);
 		 #echo "count: ". count($TESTING6). '<br>';
-		 if($TESTING6 == 1){
+		 if($TESTING6 == TRUE){
 		 	echo "Test Worked, User was added Successfully <br>";
 		 	echo "------------------------------------------------------------------------<br>";
 		 }
@@ -132,34 +145,66 @@ class TestingScipts{
 		 	echo "<br>Test did not work <br>";
 		 	echo "------------------------------------------------------------------------<br>";
 		 }
+		 removeFromDB("DELETE FROM customer WHERE userName = '$userName';", "SELECT * FROM customer WHERE userName = '$userName';");
 	}
 
-	function test_getCustomerByUserName(){
-		echo "Testing getCustomerByUserName() with previous paramaters";
-		$userName = 'SeanTaylor7';
+	function test_updateShipping()
+	{
+		echo "Testing updateShipping to update the shipping of the user with CustomerID 1<br>";
 		$test7 = new itemDAO();
-		$TESTING7 = $test7->getCustomerByUserName($userName);
-		if($TESTING7 != null){
-			echo "Test worked <br>";
-			echo "<b>Expecting </b><br>
-				  userName: " . $userName . '<br>
-				  fName: Sean <br>';
-			#session_start(); 
-			$_SESSION['items'] = $TESTING7; 
-			for($i = 0; $i<count($TESTING7); $i++){
-		     	$item = $TESTING7[$i];
-		     	echo "<b>Actual Results: </b><br>";
-				echo $item->userName. '<br>';
-				echo $item->fName . '<br>'; 
-				echo '<br>';
-			}
-			echo "------------------------------------------------------------------------<br> ";
+		$TESTING7 = $test7->updateShipping(1, "111 testAddress St", "Bridgeport", "CT", 101010);
+		if($TESTING7)
+		{
+			echo "The information was successfully updated<br>";
+		 	echo "------------------------------------------------------------------------<br>";
 		}
-		else {
-			echo "Test didnt work <br>";
-			echo "------------------------------------------------------------------------<br>";
-		}
+	}
 
+	function test_updateBilling()
+	{
+		echo "Testing updateBilling to update the billing of the user with CustomerID 1<br>";
+		$test8 = new itemDAO();
+		$TESTING8 = $test8->updateBilling(1, "111 testAddress St", "Bridgeport", "CT", 10101, 1234567812, "VISA", 919);
+		if($TESTING8)
+		{
+			echo "The information was successfully updated<br>";
+		 	echo "------------------------------------------------------------------------<br>";
+		}
+	}
+
+	function test_getShippingByID()
+	{
+		echo "Testing getShippingByID to get the shipping of the user with CustomerID 1<br>";
+		$test9 = new itemDAO();
+		$TESTING9 = $test9->getShippingByID(1);
+		if($TESTING9->customerID == 1)
+		{
+			echo "The information was successfully retrieved<br>";
+			echo "Address: $TESTING9->shipAdd<br>";
+			echo "City: $TESTING9->shippingCity<br>";
+			echo "State: $TESTING9->shippingState<br>";
+			echo "Zip: $TESTING9->shippingZipcode<br>";
+		 	echo "------------------------------------------------------------------------<br>";
+		}
+	}
+
+	function test_getBillingByID()
+	{
+		echo "Testing getBillingByID to get the billing of the user with CustomerID 1<br>";
+		$test10 = new itemDAO();
+		$TESTING10 = $test10->getBillingByID(1);
+		if($TESTING10->customerID == 1)
+		{
+			echo "The information was successfully retrieved<br>";
+			echo "Address: $TESTING10->billingAddress<br>";
+			echo "City: $TESTING10->billingCity<br>";
+			echo "State: $TESTING10->billingState<br>";
+			echo "Zip: $TESTING10->billingZipcode<br>";
+			echo "Card No: $TESTING10->creditCardNo<br>";
+			echo "Card Type: $TESTING10->creditCardType<br>";
+			echo "CVC: $TESTING10->creditCardCVC<br>";
+		 	echo "------------------------------------------------------------------------<br>";
+		}
 	}
 
 }

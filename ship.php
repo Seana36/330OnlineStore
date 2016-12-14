@@ -11,7 +11,7 @@
        
         
         $itemDAO = new itemDAO();
-        $check= $itemDAO->updateShipping(6, $shipAdd, $shippingCity, $shippingState, $shippingZipcode );
+        $check= $itemDAO->updateShipping($_SESSION['customer'], $shipAdd, $shippingCity, $shippingState, $shippingZipcode );
 
         if($check)
         {

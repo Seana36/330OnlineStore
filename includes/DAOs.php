@@ -94,13 +94,13 @@ function removeFromDB($sql, $sqlCheck)
     }
     if($result->num_rows == 0)
     {
-        echo "The item does not exist</br>";
+        //echo "The item does not exist</br>";
         return FALSE;
     }
     else
     {
         $conn->query($sql);
-        echo "Successfully removed the item</br>";
+        //echo "Successfully removed the item</br>";
         return TRUE;
     }
 }
@@ -231,11 +231,10 @@ class itemDAO{
         else
         {   
             echo "";
-        } 
-        $shippingArray = array();
+        }
         $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $shipping = new shippingDTO();
             $shipping->shippingID = $row["shippingID"];
@@ -244,10 +243,8 @@ class itemDAO{
             $shipping->shippingCity = $row["shippingCity"];
             $shipping->shippingState = $row["shippingState"];
             $shipping->shippingZipcode= $row["shippingZipcode"];
-           
-             array_push($shippingArray, $shipping); 
         }
-        return $shippingArray;
+        return $shipping;
     }
 
      public function getBillingByID($searchFor)
@@ -268,13 +265,12 @@ class itemDAO{
         {   
             echo "";
         } 
-        $billingArray = array();
         $sql = "SELECT * FROM billinginformation WHERE customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $billing = new billingDTO();
-            $billing->billingID = $row["$billingID"];
+            $billing->billingID = $row["billingID"];
             $billing->customerID = $row["customerID"];
             $billing->billingAddress = $row["billingAddress"];
             $billing->billingCity = $row["billingCity"];
@@ -283,10 +279,8 @@ class itemDAO{
             $billing->creditCardNo = $row["creditCardNo"];
             $billing->creditCardType = $row["creditCardType"];
             $billing->creditCardCVC = $row["creditCardCVC"];
-           
-             array_push($billingArray, $billing); 
         }
-        return $billingArray;
+        return $billing;
     }
 
 
@@ -445,9 +439,9 @@ class itemDAO{
             if (!$conn->query($query)){
                 die("query1 failed:" . $conn->error);
             }
+            return TRUE;
         }
     }
-
 
  public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
       {
@@ -470,7 +464,7 @@ class itemDAO{
 
 
        
-        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd' WHERE (customerID='$customerID')";
+        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd', shippingCity = '$shippingCity', shippingState = '$shippingState', shippingZipcode = $shippingZipcode WHERE (customerID='$customerID')";
 
         if (mysqli_query($conn, $sql)) 
         {
@@ -507,7 +501,7 @@ class itemDAO{
 
 
        
-        $sql = "UPDATE  billinginformation SET billingAddress='$billingAddress', billingCity='$billingCity', billingState='$billingState', billingZipcode='$billingZipcode', creditCardNo = '$creditCardNo', creditCardType = '$creditCardType', creditCardCVC='$creditCardCVC' WHERE (customerID=$customerID)";
+        $sql = "UPDATE  billinginformation SET billingAddress='$billingAddress', billingCity='$billingCity', billingState='$billingState', billingZipcode='$billingZipcode', creditCardNo = $creditCardNo, creditCardType = '$creditCardType', creditCardCVC='$creditCardCVC' WHERE (customerID=$customerID)";
 
         if (mysqli_query($conn, $sql)) 
         {

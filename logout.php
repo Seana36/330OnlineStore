@@ -6,5 +6,5 @@
    $_SESSION['employeeAccount'] = FALSE;
    $_SESSION['customer'] = null;
    echo 'You have cleaned session';
-   header('Refresh: 2; URL = homeController.php');
+   header('location: ./homeController.php');
 ?>

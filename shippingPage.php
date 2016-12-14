@@ -18,7 +18,7 @@
 
 <body>
 <?php
-include("./includes/navLoggedIn.php");
+include("./includes/nav.php");
 ?>
 
    
@@ -59,17 +59,13 @@ include("./includes/navLoggedIn.php");
 
                         		<?php
             
-                                $shippingI = $_SESSION['shippingI']; 
-                                
-                                for($i = 0; $i<count($shippingI); $i++){
-                                     $shipping = $shippingI[$i];
-                                    
+                                $shipping = $_SESSION['shipping'];
+
                                         echo "<br>";
                                         echo "<h5> Address: " .$shipping->shipAdd. "</h4 <br>"; 
                                         echo "<h5> City: " .$shipping->shippingCity. "</h4>"; 
                                        echo "<h5> State: "  .$shipping->shippingState. "</h4>";
                                        echo "<h5> Zip Code: "  .$shipping->shippingZipcode. "</h4>";
-                                 }
 
                         		?>
 
@@ -82,7 +78,6 @@ include("./includes/navLoggedIn.php");
 						</ul>
                        -->
                      	
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                     </div>
                     <!--<div class="ratings">
                         <p class="pull-right">3 reviews</p>

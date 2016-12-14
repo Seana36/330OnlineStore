@@ -32,11 +32,13 @@
 	#$test6 = new TestingScipts();
 	$TESTING6 = $test->test_registerNewUser();//need to make this 
 
-	$TESTING7 = $test->test_getCustomerByUserName();
+	$TESTING7 = $test->test_updateShipping();
 
-	#$TESTING8 = $test->test_deletedCustomer(); //need to make this 
+	$TESTING8 = $test->test_updateBilling(); //need to make this 
 
-	#$TESTING9 = $test->test_getCustomerByID(); 
+	$TESTING9 = $test->test_getShippingByID(); 
+
+	$TESTING10 = $test->test_getBillingByID(); 
 
 
 ?>
