@@ -60,30 +60,23 @@
                     </div>
                     <div id="collapse0" class="panel-collapse collapse in" >
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" value="Technology" name='category' >
-                                        Technology
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="radio" >
-                                    <label>
-                                        <input type="radio" value="Fragrances" name='category'>
-                                        Fragrances
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="radio"  >
-                                    <label>
-                                        <input type="radio" value="Fruit" name='category'>
-                                        Fruit
-                                    </label>
-                                </div>
-                            </li>
+                            <?php
+                                require_once('./includes/DAOs.php');
+                                $categoryDAO = new itemDAO(); 
+	                            $categories = $categoryDAO->getAllCategories();
+                                for($i = 0; $i < count($categories); $i++)
+                                {
+                                    $category = $categories[$i];
+                                    echo "<li class='list-group-item'>";
+                                    echo    "<div class='radio'>";
+                                    echo        "<label>";
+                                    echo            "<input type='radio' value=".$category->categoryName." name='category'>";
+                                    echo            $category->categoryName;
+                                    echo        "</label>";
+                                    echo    "</div>";
+                                    echo "</li>";
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>

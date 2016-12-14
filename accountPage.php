@@ -17,9 +17,9 @@
    </head>
 
 <body>
-<?php
-include("./includes/navLoggedIn.php");
-?>
+    <?php
+        include("./includes/nav.php");
+    ?>
 
    
 
@@ -27,15 +27,9 @@ include("./includes/navLoggedIn.php");
     <div class="container">
 
         <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">User Account</p>
-                <div class="list-group">
-                    <a href="/330OnlineStore/shippingController.php" class="list-group-item">Edit Shipping</a>
-                    <a href="/330OnlineStore/billingControlller.php" class="list-group-item">Edit Billing</a>
-                    <a href="#" class="list-group-item">Update Password</a>
-                </div>
-            </div>
+            <?php
+                include("./includes/accountOptions.php")
+            ?>
 
             <div class="col-md-9">
 
@@ -47,25 +41,37 @@ include("./includes/navLoggedIn.php");
 
                         		<?php
                                  //   echo "Hello";
-                                $customers = $_SESSION['customer']; 
+                                    $customer = $_SESSION['customerDTO']; 
                                 // $customerID = 1;
-                                for($i = 0; $i<count($customers); $i++){
-                                     $customer = $customers[$i];
+                                //for($i = 0; $i<count($customers); $i++){
                                     
                                    // if($customers[$i]->customerID == $customerID){ 
-                                    
-                                        echo "<br>";
-                                        echo "<h5> First Name: " .$customer->fName. "</li>"; 
-                                        echo "<h5> Last Name: " .$customer->lName. "</h4>"; 
-                                        echo "<h5> Email: "  .$customer->email. "</h4>";
-                                        echo "<h5> User Name: "  .$customer->userName. "</h4>";
-                                        echo "<h5> Phone Number: "  .$customer->phoneNo. "</h4>";
-
+                                    try
+                                    {
+                                        if($customer)
+                                        {
+                                            echo "<br>";
+                                            echo "<h5> First Name: " .$customer->fName. "</li>"; 
+                                            echo "<h5> Last Name: " .$customer->lName. "</h4>"; 
+                                            echo "<h5> Email: "  .$customer->email. "</h4>";
+                                            echo "<h5> User Name: "  .$customer->userName. "</h4>";
+                                            echo "<h5> Phone Number: "  .$customer->phoneNo. "</h4>";
+                                            $_SESSION['customerDTO'] = null;
+                                        }
+                                        else
+                                        {
+                                            throw new Exception("You must be logged in to review your account information");
+                                        }
+                                    }
+                                    catch(Exception $e)
+                                    {
+                                        echo $e->getMessage();
+                                    }
                                     
 
                                       
                                    // }
-                                 }
+                                 //}
 
                         		?>
 

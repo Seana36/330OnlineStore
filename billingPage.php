@@ -17,9 +17,9 @@
    </head>
 
 <body>
-<?php
-include("./includes/navLoggedIn.php");
-?>
+    <?php
+        include("./includes/nav.php");
+    ?>
 
    
 
@@ -28,14 +28,9 @@ include("./includes/navLoggedIn.php");
 
         <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">User Account</p>
-                <div class="list-group">
-                    <a href="/330OnlineStore/shippingController.php" class="list-group-item ">Edit Shipping</a>
-                    <a href="/330OnlineStore/shippingController.php" class="list-group-item active">Edit Billing</a>
-                    <a href="#" class="list-group-item">Update Password</a>
-                </div>
-            </div>
+            <?php
+                include("./includes/accountOptions.php")
+            ?>
 
             <div class="col-md-9">
 
@@ -75,25 +70,19 @@ include("./includes/navLoggedIn.php");
                         		<?php
             
                                 $billing = $_SESSION['billing']; 
-                                
-                                for($i = 0; $i<count($billing); $i++){
-                                     $billingI = $billing[$i];
                                     
                                         echo "<br>";
                                         echo "<h3>Current Billing Address</h3>";
-                                        echo "<h5> Address: " .$billingI->billingAddress. "</h4 <br>"; 
-                                        echo "<h5> City: " .$billingI->billingCity. "</h4>"; 
-                                       echo "<h5> State: "  .$billingI->billingState. "</h4>";
-                                       echo "<h5> Zip Code: "  .$billingI->billingZipcode. "</h4>";
+                                        echo "<h5> Address: " .$billing->billingAddress. "</h4 <br>"; 
+                                        echo "<h5> City: " .$billing->billingCity. "</h4>"; 
+                                       echo "<h5> State: "  .$billing->billingState. "</h4>";
+                                       echo "<h5> Zip Code: "  .$billing->billingZipcode. "</h4>";
 
                                         echo "<br>";
                                         echo "<h3>Current Card Information</h3>";
-                                        echo "<h5> Card Number: ".$billingI->creditCardNo. "</h4 <br>";
-                                        echo "<h5> Card Type: "  .$billingI->creditCardType. "</h4>";
-                                        echo "<h5> CVC: "  .$billingI->creditCardCVC. "</h4>";
-
-
-                                 }
+                                        echo "<h5> Card Number: ".$billing->creditCardNo. "</h4 <br>";
+                                        echo "<h5> Card Type: "  .$billing->creditCardType. "</h4>";
+                                        echo "<h5> CVC: "  .$billing->creditCardCVC. "</h4>";
 
                         		?>
 

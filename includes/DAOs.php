@@ -1,5 +1,5 @@
 <?php 
-include('DTOs.php');
+require_once('DTOs.php');
 ##GLOBAL FUNCTIONS
 
 
@@ -94,13 +94,13 @@ function removeFromDB($sql, $sqlCheck)
     }
     if($result->num_rows == 0)
     {
-        echo "The item does not exist</br>";
+        //echo "The item does not exist</br>";
         return FALSE;
     }
     else
     {
         $conn->query($sql);
-        echo "Successfully removed the item</br>";
+        //echo "Successfully removed the item</br>";
         return TRUE;
     }
 }
@@ -192,10 +192,9 @@ class itemDAO{
         else{   
             echo "";
         } 
-        $customerArray = array();
         $sql = "SELECT * FROM Customer WHERE customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $customer = new customerDTO();
             $customer->customerID = $row["customerID"];
@@ -207,9 +206,8 @@ class itemDAO{
             $customer->phoneNo = $row["phoneNo"];
             $customer->securityQuestion = $row["securityQuestion"];
             $customer->securityQuestionAns = $row["securityQuestionAns"];
-             array_push($customerArray, $customer); 
         }
-        return $customerArray;
+        return $customer;
     }
 
 
@@ -234,7 +232,7 @@ class itemDAO{
         $shippingArray = array();
         $sql = "SELECT * FROM shippinginformation s, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $shipping = new shippingDTO();
             $shipping->shippingID = $row["shippingID"];
@@ -245,10 +243,9 @@ class itemDAO{
             $shipping->shippingZipcode= $row["shippingZipcode"];
             $shipping->fName =$row['fName'];
             $shipping->lName =$row['lName'];
-           
              array_push($shippingArray, $shipping); 
         }
-        return $shippingArray;
+        return $shipping;
     }
 
      public function getBillingByID($searchFor)
@@ -272,7 +269,7 @@ class itemDAO{
         $billingArray = array();
         $sql = "SELECT * FROM billinginformation b, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $billing = new billingDTO();
             $billing->billingID = $row["billingID"];
@@ -289,7 +286,7 @@ class itemDAO{
            
              array_push($billingArray, $billing); 
         }
-        return $billingArray;
+        return $billing;
     }
 
 
@@ -442,9 +439,9 @@ class itemDAO{
             if (!$conn->query($query)){
                 die("query1 failed:" . $conn->error);
             }
+            return TRUE;
         }
     }
-
 
     public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
       {
@@ -467,7 +464,7 @@ class itemDAO{
 
 
        
-        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd' WHERE (customerID='$customerID')";
+        $sql = "UPDATE  shippinginformation SET shipAdd='$shipAdd', shippingCity = '$shippingCity', shippingState = '$shippingState', shippingZipcode = $shippingZipcode WHERE (customerID='$customerID')";
 
         if (mysqli_query($conn, $sql)) 
         {
@@ -503,7 +500,7 @@ class itemDAO{
 
 
        
-        $sql = "UPDATE  billinginformation SET billingAddress='$billingAddress', billingCity='$billingCity', billingState='$billingState', billingZipcode='$billingZipcode', creditCardNo = '$creditCardNo', creditCardType = '$creditCardType', creditCardCVC='$creditCardCVC' WHERE (customerID=$customerID)";
+        $sql = "UPDATE  billinginformation SET billingAddress='$billingAddress', billingCity='$billingCity', billingState='$billingState', billingZipcode='$billingZipcode', creditCardNo = $creditCardNo, creditCardType = '$creditCardType', creditCardCVC='$creditCardCVC' WHERE (customerID=$customerID)";
 
         if (mysqli_query($conn, $sql)) 
         {

@@ -52,12 +52,12 @@ CREATE TABLE IF NOT EXISTS `billinginformation` (
   `billingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
   `billingAddress` varchar(50) DEFAULT NULL,
-  `billingCity` varchar(10) DEFAULT NULL,
-  `billingState` varchar(10) DEFAULT NULL,
-  `billingZipcode` int(6) DEFAULT NULL,
-  `creditCardNo` int(11) DEFAULT NULL,
+    billingCity varchar(25) DEFAULT NULL,
+  billingState varchar(15) DEFAULT NULL,
+  billingZipcode int(5) DEFAULT NULL,
+  `creditCardNo` int(16) DEFAULT NULL,
   `creditCardType` varchar(10) DEFAULT NULL,
-  `creditCardCVC` int(11) DEFAULT NULL,
+  `creditCardCVC` int(3) DEFAULT NULL,
   PRIMARY KEY (`billingID`),
   KEY `customerID` (`customerID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -112,7 +112,7 @@ INSERT INTO `cancelledorders` (`orderID`, `customerID`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `category` (
   `categoryID` int(11) NOT NULL,
   `details` varchar(100) DEFAULT NULL,
-  `categoryName` varchar(50) DEFAULT NULL,
+  `categoryName` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -134,12 +134,12 @@ INSERT INTO `category` (`categoryID`, `details`, `categoryName`) VALUES
 CREATE TABLE IF NOT EXISTS `customer` (
   `customerID` int(11) NOT NULL AUTO_INCREMENT,
   `fName` varchar(15) NOT NULL,
-  `lName` varchar(15) NOT NULL,
-  `userName` varchar(50) NOT NULL,
-  `password` varchar(10) NOT NULL,
-  `email` varchar(15) DEFAULT NULL,
+  `lName` varchar(25) NOT NULL,
+  `userName` varchar(15) NOT NULL,
+  `password` varchar(15) NOT NULL,
+  `email` varchar(30) DEFAULT NULL,
   `phoneNo` int(11) DEFAULT NULL,
-  `securityQuestion` varchar(20) NOT NULL,
+  `securityQuestion` varchar(40) NOT NULL,
   `securityQuestionAns` varchar(20) NOT NULL,
   PRIMARY KEY (`customerID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
@@ -165,9 +165,9 @@ INSERT INTO `customer` (`customerID`, `fName`, `lName`, `userName`, `password`, 
 
 CREATE TABLE IF NOT EXISTS `employee` (
   `employeeID` int(11) NOT NULL AUTO_INCREMENT,
-  `position` varchar(100) DEFAULT NULL,
-  `fName` varchar(100) DEFAULT NULL,
-  `lName` varchar(10) DEFAULT NULL,
+  `position` varchar(50) DEFAULT NULL,
+  `fName` varchar(15) DEFAULT NULL,
+  `lName` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`employeeID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
@@ -285,10 +285,10 @@ CREATE TABLE IF NOT EXISTS `order` (
 CREATE TABLE IF NOT EXISTS `shippinginformation` (
   `shippingID` int(11) NOT NULL AUTO_INCREMENT,
   `customerID` int(11) NOT NULL,
-  `shipAdd` varchar(30) DEFAULT NULL,
-  `shippingCity` varchar(10) DEFAULT NULL,
-  `shippingState` varchar(10) DEFAULT NULL,
-  `shippingZipcode` int(6) DEFAULT NULL,
+  `shipAdd` varchar(50) DEFAULT NULL,
+  shippingCity varchar(20) DEFAULT NULL,
+  shippingState varchar(20) DEFAULT NULL,
+  shippingZipcode int(5) DEFAULT NULL,
   PRIMARY KEY (`shippingID`),
   KEY `customerID` (`customerID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;

@@ -1,7 +1,10 @@
 <?php 
-include('./includes/DTOs.php');
-session_start();
-    
+    include('./includes/DTOs.php');
+    session_start();
+    if(!$_SESSION['loggedIn'] || !$_SESSION['employeeAccount'])
+    {
+        header('location:./homeController.php');
+    } 
 ?> 
 
 <!DOCTYPE html>

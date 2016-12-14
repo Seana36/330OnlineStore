@@ -13,7 +13,7 @@
         $creditCardCVC = $_POST["creditCardCVC"];       
         
         $itemDAO = new itemDAO();
-        $check= $itemDAO->updateBilling(6, $billingAddress, $billingCity, $billingState, $billingZipcode, 
+        $check= $itemDAO->updateBilling($_SESSION['customer'], $billingAddress, $billingCity, $billingState, $billingZipcode, 
             $creditCardNo, $creditCardType, $creditCardCVC);
 
         if($check)

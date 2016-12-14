@@ -5,11 +5,9 @@
 
     
 
-	$itemDAO = new itemDAO(); 
-	$shippingI = $itemDAO->getShippingByID(6); 
-	//$shipping = $itemDAO->updateShipping(6, $shipAdd, $shippingCity, $shippingState, $shippingZipcode); 
 	session_start(); 
-	$_SESSION['shippingI'] = $shippingI; 
-
+	$itemDAO = new itemDAO(); 
+	$_SESSION['shipping'] = $itemDAO->getShippingByID($_SESSION['customer']); 
+	
 	header('location:shippingPage.php'); 
 ?>

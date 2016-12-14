@@ -5,11 +5,9 @@
 
     
 
-	$itemDAO = new itemDAO(); 
-	$billing = $itemDAO->getBillingByID(6); 
-	//$shipping = $itemDAO->updateShipping(6, $shipAdd, $shippingCity, $shippingState, $shippingZipcode); 
 	session_start(); 
-	$_SESSION['billing'] = $billing; 
+	$itemDAO = new itemDAO(); 
+	$_SESSION['billing'] = $itemDAO->getBillingByID($_SESSION['customer']); 
 
 	header('location:billingPage.php'); 
 ?>
