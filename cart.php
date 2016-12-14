@@ -168,5 +168,9 @@ if (isset($_POST["add_to_cart"]))
                 </div>  
            </div>  
            <br />  
+
+           <form action="checkoutController.php" method="get">
+  <button type="submit" class="btn btn-info" >Checkout </button>
+</form>
       </body>  
  </html>

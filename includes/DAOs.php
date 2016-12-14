@@ -213,10 +213,7 @@ class itemDAO{
     }
 
 
-
-
-
-  public function getShippingByID($searchFor)
+    public function getShippingByID($searchFor)
     {
         $servername = "localhost";
         $username = "root";
@@ -235,7 +232,7 @@ class itemDAO{
             echo "";
         } 
         $shippingArray = array();
-        $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
+        $sql = "SELECT * FROM shippinginformation s, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc())
         {
@@ -246,6 +243,8 @@ class itemDAO{
             $shipping->shippingCity = $row["shippingCity"];
             $shipping->shippingState = $row["shippingState"];
             $shipping->shippingZipcode= $row["shippingZipcode"];
+            $shipping->fName =$row['fName'];
+            $shipping->lName =$row['lName'];
            
              array_push($shippingArray, $shipping); 
         }
@@ -271,12 +270,12 @@ class itemDAO{
             echo "";
         } 
         $billingArray = array();
-        $sql = "SELECT * FROM billinginformation WHERE customerID = '$searchFor';";
+        $sql = "SELECT * FROM billinginformation b, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc())
         {
             $billing = new billingDTO();
-            $billing->billingID = $row["$billingID"];
+            $billing->billingID = $row["billingID"];
             $billing->customerID = $row["customerID"];
             $billing->billingAddress = $row["billingAddress"];
             $billing->billingCity = $row["billingCity"];
@@ -285,17 +284,13 @@ class itemDAO{
             $billing->creditCardNo = $row["creditCardNo"];
             $billing->creditCardType = $row["creditCardType"];
             $billing->creditCardCVC = $row["creditCardCVC"];
+            $billing->fname = $row["fName"];
+            $billing->lName = $row["lName"];
            
              array_push($billingArray, $billing); 
         }
         return $billingArray;
     }
-
-
-
-
-
-
 
 
     public function getSearchResults($searchFor){
@@ -451,7 +446,7 @@ class itemDAO{
     }
 
 
- public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
+    public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
       {
         $servername = "localhost";
         $username = "root";
@@ -486,7 +481,6 @@ class itemDAO{
         }
                 
     }
-
 
     public function updateBilling($customerID, $billingAddress, $billingCity, $billingState, $billingZipcode, $creditCardNo, $creditCardType, $creditCardCVC)
       {
@@ -523,6 +517,66 @@ class itemDAO{
         }
                 
     }
+
+    public function addOrder(){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else
+        {
+            echo "";
+        }
+       # start_session(); 
+        $newOrder = $_SESSION['shopping_cart']; 
+        $customer = $_SESSION['customer'];
+        $shipping = $_SESSION['shippingInfo'];
+        $billing =  $_SESSION['billingInfo'];
+     #   var_dump($newOrder);
+     #   var_dump($customer);
+     #   var_dump($shipping);
+     #   var_dump($billing);
+
+       # $cust = $_SESSION['billingInfo']; 
+        #for($i = 0; $i<1; $i++){
+        foreach($_SESSION["shopping_cart"] as $keys => $values) {
+           # $customer = $cust[$i];
+            $newOrd = $newOrder[1];
+            #$cust   = $customer[$i];
+            $ship   = $shipping[0];
+            $bill   = $billing[0];
+      #      echo "<br>". $ship->customerID ;
+       #     echo "<br>". date('Y-m-d h:i:s') ;
+        #    echo "<br>". $values["itemID"];
+         #   echo "<br>". $values["quantity"];
+#INSERT INTO `order`(`itemID`, `quantity`, `status`, `customerID`, `billingID`, `shippingID`) VALUES (12,3,'IDK',1,1,1)
+          $sql = "INSERT INTO `order`( `itemID`, `quantity`, `orderDate`, `status`, `customerID`, `billingID`, `shippingID`) VALUES (".$values['itemID'].",".$values['quantity'].", '".date('Y-m-d h:i:s')."' ,'Just Ordered',".$ship->customerID.",".$bill->billingID.",".$ship->shippingID.")" ;
+            #  $result = $conn->query($sql);
+        if (mysqli_query($conn, $sql)) 
+        {
+            //echo "Record updated successfully";
+            echo "updated successfully";
+            return TRUE; 
+        }           
+        else 
+        {
+             echo "Error updating record: " . mysqli_error($conn);
+             return FALSE; 
+             
+        }
+        }
+
+
+
+    }//end addOrder() 
 
 }
 
