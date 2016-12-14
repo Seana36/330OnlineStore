@@ -17,9 +17,9 @@
    </head>
 
 <body>
-<?php
-include("./includes/navLoggedIn.php");
-?>
+    <?php
+        include("./includes/navLoggedIn.php");
+    ?>
 
    
 
@@ -28,14 +28,9 @@ include("./includes/navLoggedIn.php");
 
         <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">User Account</p>
-                <div class="list-group">
-                    <a href="/330OnlineStore/shippingController.php" class="list-group-item ">Edit Shipping</a>
-                    <a href="/330OnlineStore/shippingController.php" class="list-group-item active">Edit Billing</a>
-                    <a href="#" class="list-group-item">Update Password</a>
-                </div>
-            </div>
+            <?php
+                include("./includes/accountOptions.php")
+            ?>
 
             <div class="col-md-9">
 

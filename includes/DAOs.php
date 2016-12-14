@@ -1,5 +1,5 @@
 <?php 
-include('DTOs.php');
+require_once('DTOs.php');
 ##GLOBAL FUNCTIONS
 
 
@@ -192,10 +192,9 @@ class itemDAO{
         else{   
             echo "";
         } 
-        $customerArray = array();
         $sql = "SELECT * FROM Customer WHERE customerID = '$searchFor';";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc())
+        if($row = $result->fetch_assoc())
         {
             $customer = new customerDTO();
             $customer->customerID = $row["customerID"];
@@ -207,9 +206,8 @@ class itemDAO{
             $customer->phoneNo = $row["phoneNo"];
             $customer->securityQuestion = $row["securityQuestion"];
             $customer->securityQuestionAns = $row["securityQuestionAns"];
-             array_push($customerArray, $customer); 
         }
-        return $customerArray;
+        return $customer;
     }
 
 

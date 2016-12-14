@@ -1,10 +1,10 @@
 <?php 
     include('./includes/DAOs.php');
     require_once('./includes/DTOs.php');
+	session_start();
 
 	$itemDAO = new itemDAO(); 
 	$categories = $itemDAO->getAllCategories(); 
-	session_start();
 	$_SESSION['categories'] = $categories; 
 	header('location:addCategory.php'); 
 ?>

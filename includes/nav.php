@@ -25,20 +25,15 @@
 				<li><a href='./removeCategoryController.php'>Remove Category</a></li>";
 			}
 			
-			else{
-				echo "<li class='dropdown'>
-			<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Account Settings
-			<span class='caret'></span></a>
-			<ul class='dropdown-menu'>
-				<li><a href='editProfilePage.php'>Edit Profile</a></li>
-				<li><a href='#'>Edit Billing</a></li>
-			</ul>
-			</li>";
+			else
+      {
+				echo "<li><a href='./accountController.php'>Account </a></li>";
 			}
 			
 			echo "<li><a href='./logout.php'>Logout</a></li>";
 		}
-		else{
+		else
+    {
 			echo "<li><a href='./loginPage.php'>Login/Signup</a></li>";
 		}
 		?>

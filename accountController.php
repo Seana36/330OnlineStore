@@ -2,9 +2,15 @@
     include('./includes/DAOs.php');
     require_once('./includes/DTOs.php');
 
+	session_start();
 	$itemDAO = new itemDAO(); 
-	$customer = $itemDAO->getCustomerByID(6); 
-	session_start(); 
-	$_SESSION['customer'] = $customer; 
-	header('location:accountPage.php'); 
+	$_SESSION['customerDTO'] = $itemDAO->getCustomerByID($_SESSION['customer']); 
+	if($_SESSION['loggedIn'])
+	{
+		header('location:accountPage.php'); 
+	}
+	else
+	{
+		header('location:homeController.php');
+	}
 ?>
