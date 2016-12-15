@@ -37,6 +37,8 @@ class shippingDTO{
 	public $shippingCity;
 	public $shippingState;
 	public $shippingZipcode;
+	public $fName; 
+	public $lName; 
 }
 
 class billingDTO{
@@ -49,6 +51,8 @@ class billingDTO{
 	public $creditCardNo;
 	public $creditCardType;
 	public $creditCardCVC;
+	public $fName; 
+	public $lName; 
 }
 //order
 

@@ -555,6 +555,66 @@ class itemDAO{
     }
 
 
+    public function addOrder(){
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else
+        {
+            echo "";
+        }
+       # start_session(); 
+        $newOrder = $_SESSION['shopping_cart']; 
+        $customer = $_SESSION['customer'];
+        $shipping = $_SESSION['shippingInfo'];
+        $billing =  $_SESSION['billingInfo'];
+     #   var_dump($newOrder);
+     #   var_dump($customer);
+     #   var_dump($shipping);
+     #   var_dump($billing);
+
+       # $cust = $_SESSION['billingInfo']; 
+        #for($i = 0; $i<1; $i++){
+        foreach($_SESSION["shopping_cart"] as $keys => $values) {
+           # $customer = $cust[$i];
+            $newOrd = $newOrder[1];
+            #$cust   = $customer[$i];
+            $ship   = $shipping[0];
+            $bill   = $billing[0];
+      #      echo "<br>". $ship->customerID ;
+       #     echo "<br>". date('Y-m-d h:i:s') ;
+        #    echo "<br>". $values["itemID"];
+         #   echo "<br>". $values["quantity"];
+#INSERT INTO `order`(`itemID`, `quantity`, `status`, `customerID`, `billingID`, `shippingID`) VALUES (12,3,'IDK',1,1,1)
+          $sql = "INSERT INTO `order`( `itemID`, `quantity`, `orderDate`, `status`, `customerID`, `billingID`, `shippingID`) VALUES (".$values['itemID'].",".$values['quantity'].", '".date('Y-m-d h:i:s')."' ,'Just Ordered',".$ship->customerID.",".$bill->billingID.",".$ship->shippingID.")" ;
+            #  $result = $conn->query($sql);
+        if (mysqli_query($conn, $sql)) 
+        {
+            //echo "Record updated successfully";
+            echo "updated successfully";
+            return TRUE; 
+        }           
+        else 
+        {
+             echo "Error updating record: " . mysqli_error($conn);
+             return FALSE; 
+             
+        }
+        }
+
+
+
+    }//end addOrder() 
+
 }
 
 ?>
