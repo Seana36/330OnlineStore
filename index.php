@@ -1,5 +1,5 @@
 <?php 
-header('location:homeController.php'); 
+
 
 // Start
 session_start();
@@ -7,7 +7,7 @@ session_start();
 // PHP's
 require("products.php");
 require("layout.php");
-
+$_SESSION['shopping_cart'] = array();
 // Initialize cart
 if (!isset($_SESSION['shopping_cart']))
 {
@@ -230,4 +230,6 @@ foreach ($products as $id => $product)
 	echo "</table>";
 }
 echo $footer;
+
+header('location:homeController.php'); 
 ?>

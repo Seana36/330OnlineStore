@@ -228,7 +228,7 @@ class itemDAO{
         {   
             echo "";
         }
-        $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
+        $sql = "SELECT * FROM shippinginformation s, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
         if($row = $result->fetch_assoc())
         {
@@ -239,6 +239,8 @@ class itemDAO{
             $shipping->shippingCity = $row["shippingCity"];
             $shipping->shippingState = $row["shippingState"];
             $shipping->shippingZipcode= $row["shippingZipcode"];
+            $shipping->fName = $row["fName"];
+            $shipping->lName = $row["lName"];
         }
         return $shipping;
     }
@@ -301,7 +303,7 @@ class itemDAO{
         {   
             echo "";
         } 
-        $sql = "SELECT * FROM billinginformation WHERE customerID = '$searchFor';";
+        $sql = "SELECT * FROM billinginformation b, customer c WHERE c.customerID = '$searchFor';";
         $result = $conn->query($sql);
         if($row = $result->fetch_assoc())
         {
@@ -315,6 +317,8 @@ class itemDAO{
             $billing->creditCardNo = $row["creditCardNo"];
             $billing->creditCardType = $row["creditCardType"];
             $billing->creditCardCVC = $row["creditCardCVC"];
+            $billing->fName = $row["fName"];
+            $billing->lName = $row["lName"];
         }
         return $billing;
     }
