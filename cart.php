@@ -7,31 +7,54 @@ session_start();
 include("includes/nav.php");
 #session_start();
 #$items = $_SESSION['items']; 
-$itemID = $_GET['itemID'];
- echo "Item ID: ". $itemID; 
- $item_count = count($_SESSION["shopping_cart"]);
- $item_count++; 
+ 
 # var_dump($item_count);
 
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
-if (isset($_POST["add_to_cart"]))
-  {
+
+  if (isset($_GET["action"])){
+      if ($_GET["action"] == "delete"){
+          foreach ($_SESSION["shopping_cart"] as $keys => $values){
+              if ($values["itemID"] == $_GET["id"]){
+                  unset($_SESSION["shopping_cart"][$keys]);
+                  echo '<script> alert("Item Removed") </script>';
+                  echo '<script> window.location="cart.php?itemID=null" </script>';
+                }
+            }
+        }
+    }
+#// if (isset($_POST["add_to_cart"]))
+#//   {
+#//     $itemID = $_GET['itemID'];
+#//  #echo "Item ID: ". $itemID; 
+#//  $item_count = count($_SESSION["shopping_cart"]);
+#//  $item_count++;
     if (isset($_SESSION["shopping_cart"]))
       {
         $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
         if (!in_array($_GET["itemID"], $item_array_id))
           {
-            #//Gets here when I click on the button 
-            $count = count($_SESSION["shopping_cart"]);
-            $item_array = array('itemID' => $_GET["itemID"], 
-                                'itemName' => $_POST["hidden_name"], 
-                                'regularPrice' => $_POST["hidden_price"], 
-                                'quantity' => $_POST["quantity"]
-                                );
-            $_SESSION["shopping_cart"][$count] = $item_array;
-            $item_count ++;  
+             $itemID = $_GET['itemID'];
+        #echo "Item ID: ". $itemID; 
+        $item_count = count($_SESSION["shopping_cart"]);
+        $item_count++;
+       
+            #//Gets here when I click on the button
+                $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
+            $result = $connect->query($sql); 
+          if ($result->num_rows > 0) {
+       while($row = $result->fetch_assoc()) {
+        $item_array = array('itemID' => $_GET["itemID"], 
+                              'itemName' => $row['itemName'], 
+                              'regularPrice' => $row['regularPrice'],
+                              'quantity' => 1
+                              );
+          $_SESSION["shopping_cart"][$item_count] = $item_array;
+          $item_count++;
             echo '<script> alert("Item SOMETHING HERE") </script>';
           }
+        }
+      }
           else
             {
               echo '<script> alert("Item Already Added") </script>';
@@ -49,41 +72,31 @@ if (isset($_POST["add_to_cart"]))
                               );
           $_SESSION["shopping_cart"][0] = $item_array;
           $item_count++; 
-          echo '<script> alert("In else 2") </script>';
+        #  echo '<script> alert("In else 2") </script>';
         }
-  }
-  else {
-    echo '<script> alert("In else 3") </script>';
-   
-    $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
-    $result = $connect->query($sql);
-    if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
-        $item_array = array('itemID' => $_GET["itemID"], 
-                              'itemName' => $row['itemName'], 
-                              'regularPrice' => $row['regularPrice'],
-                              'quantity' => 1
-                              );
-          $_SESSION["shopping_cart"][$item_count] = $item_array;
-          $item_count++;
-      }
-    }
-  }
-  if (isset($_GET["action"]))
-    {
-      if ($_GET["action"] == "delete")
-        {
-          foreach ($_SESSION["shopping_cart"] as $keys => $values)
-            {
-              if ($values["item_id"] == $_GET["id"])
-                {
-                  unset($_SESSION["shopping_cart"][$keys]);
-                  echo '<script> alert("Item Removed") </script>';
-                  echo '<script> window.location="cart.php" </script>';
-                }
-            }
-        }
-    }
+ # }
+
+#  else {
+   # echo '<script> alert("In else 3") </script>';
+# $itemID = $_GET['itemID'];
+ #echo "Item ID: ". $itemID; 
+# $item_count = count($_SESSION["shopping_cart"]);
+# $item_count++;
+#    $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
+ #   $result = $connect->query($sql);
+  #  if ($result->num_rows > 0) {
+   #   while($row = $result->fetch_assoc()) {
+    #    $item_array = array('itemID' => $_GET["itemID"], 
+     #                         'itemName' => $row['itemName'], 
+      #                        'regularPrice' => $row['regularPrice'],
+       #                       'quantity' => 1
+        #                      );
+         # $_SESSION["shopping_cart"][$item_count] = $item_array;
+          #$item_count++;
+      #}
+    #}
+  #}
+
 ?>
 <!DOCTYPE html>
 <html>
