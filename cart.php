@@ -5,10 +5,6 @@
 echo '<br> <br> <br> <br>';
 session_start(); 
 include("includes/nav.php");
-#session_start();
-#$items = $_SESSION['items']; 
- 
-# var_dump($item_count);
 
 $connect = mysqli_connect("localhost", "root", "", "storedatabase");
 
@@ -23,48 +19,36 @@ $connect = mysqli_connect("localhost", "root", "", "storedatabase");
             }
         }
     }
-#// if (isset($_POST["add_to_cart"]))
-#//   {
-#//     $itemID = $_GET['itemID'];
-#//  #echo "Item ID: ". $itemID; 
-#//  $item_count = count($_SESSION["shopping_cart"]);
-#//  $item_count++;
     if (isset($_SESSION["shopping_cart"]))
       {
         $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
         if (!in_array($_GET["itemID"], $item_array_id))
           {
-             $itemID = $_GET['itemID'];
-        #echo "Item ID: ". $itemID; 
-        $item_count = count($_SESSION["shopping_cart"]);
-        $item_count++;
-       
-            #//Gets here when I click on the button
-                $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
+            $itemID = $_GET['itemID'];
+            $item_count = count($_SESSION["shopping_cart"]);
+            $item_count++;
+            $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
             $result = $connect->query($sql); 
-          if ($result->num_rows > 0) {
-       while($row = $result->fetch_assoc()) {
-        $item_array = array('itemID' => $_GET["itemID"], 
+            if ($result->num_rows > 0) {
+              while($row = $result->fetch_assoc()) {
+                $item_array = array('itemID' => $_GET["itemID"], 
                               'itemName' => $row['itemName'], 
                               'regularPrice' => $row['regularPrice'],
                               'quantity' => 1
                               );
-          $_SESSION["shopping_cart"][$item_count] = $item_array;
-          $item_count++;
-            echo '<script> alert("Item SOMETHING HERE") </script>';
+
+            $_SESSION["shopping_cart"][$item_count] = $item_array;
+            $item_count++;
+              }
+            }
           }
-        }
-      }
-          else
-            {
+          else{
               echo '<script> alert("Item Already Added") </script>';
               echo '<script> window.location="index.php" </script>';
             }
       }
       else
         {
-          //add item here when on cart.php page 
-          
           $item_array = array('itemID' => $_GET["itemID"], 
                               'itemName' => $_POST["hidden_name"], 
                               'regularPrice' => $_POST["hidden_price"],
@@ -72,30 +56,8 @@ $connect = mysqli_connect("localhost", "root", "", "storedatabase");
                               );
           $_SESSION["shopping_cart"][0] = $item_array;
           $item_count++; 
-        #  echo '<script> alert("In else 2") </script>';
         }
- # }
 
-#  else {
-   # echo '<script> alert("In else 3") </script>';
-# $itemID = $_GET['itemID'];
- #echo "Item ID: ". $itemID; 
-# $item_count = count($_SESSION["shopping_cart"]);
-# $item_count++;
-#    $sql = "SELECT * FROM item WHERE itemID = ". $_GET["itemID"] . ";";
- #   $result = $connect->query($sql);
-  #  if ($result->num_rows > 0) {
-   #   while($row = $result->fetch_assoc()) {
-    #    $item_array = array('itemID' => $_GET["itemID"], 
-     #                         'itemName' => $row['itemName'], 
-      #                        'regularPrice' => $row['regularPrice'],
-       #                       'quantity' => 1
-        #                      );
-         # $_SESSION["shopping_cart"][$item_count] = $item_array;
-          #$item_count++;
-      #}
-    #}
-  #}
 
 ?>
 <!DOCTYPE html>
@@ -120,17 +82,7 @@ $connect = mysqli_connect("localhost", "root", "", "storedatabase");
                 {
       ?>
        <div class = "col-md-4">
-<!--         <form method = "post" action = "cart.php?itemID=<?php echo $row["itemID"];?>">
-          <div style = "border: 1px solid #333; background-color: #f1f1f1; border-radius: 5px; padding: 16px;" align = "center">
-            <img src = "<?php echo $row["image"];?>" class = "img-responsive"/> <br/>
-              <h4 class = "text-info"><?php echo $row["itemName"];?> </h4>
-                <h4 class = "text-danger">$ <?php echo $row["regularPrice"];?> </h4>
-                  <input type = "text" name = "quantity" class = "form-control" value = "1"/>
-                    <input type = "hidden" name = "hidden_name" value = "<?php echo $row["itemName"];?>"/>
-                      <input type = "hidden" name = "hidden_price" value = "<?php echo $row["regularPrice"];?>"/>
-                        <input type = "submit" name = "add_to_cart" style = "margin-top: 5px;" class = "btn btn-success" value = "Add to Cart"/>
-          </div> 
-        </form> -->
+
       </div>
       <?php
                 }
