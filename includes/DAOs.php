@@ -210,8 +210,80 @@ class itemDAO{
         return $customer;
     }
 
+  public function getShippingByID($searchFor)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
 
-    public function getShippingByID($searchFor)
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else
+        {   
+            echo "";
+        }
+        $sql = "SELECT * FROM shippinginformation WHERE customerID = '$searchFor';";
+        $result = $conn->query($sql);
+        if($row = $result->fetch_assoc())
+        {
+            $shipping = new shippingDTO();
+            $shipping->shippingID = $row["shippingID"];
+            $shipping->customerID = $row["customerID"];
+            $shipping->shipAdd = $row["shipAdd"];
+            $shipping->shippingCity = $row["shippingCity"];
+            $shipping->shippingState = $row["shippingState"];
+            $shipping->shippingZipcode= $row["shippingZipcode"];
+        }
+        return $shipping;
+    }
+      public function getShippingByID2($searchFor)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error)
+        {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else
+        {   
+            echo "";
+        }
+         $shippingArray = array();
+        $sql = "SELECT * FROM shippinginformation s, customer c WHERE s.shippingID = $searchFor;";
+        $result = $conn->query($sql);
+        if($row = $result->fetch_assoc())
+        {
+            $shipping = new shippingDTO();
+            $shipping->shippingID = $row["shippingID"];
+            $shipping->customerID = $row["customerID"];
+            $shipping->shipAdd = $row["shipAdd"];
+            $shipping->shippingCity = $row["shippingCity"];
+            $shipping->shippingState = $row["shippingState"];
+            $shipping->shippingZipcode= $row["shippingZipcode"];
+            $shipping->fName = $row['fName'];
+            $shipping->lName = $row['lName'];
+            var_dump($shipping);
+            array_push($shippingArray, $shipping);
+        }
+        else {
+            echo  "ERROR" . mysqli_error($conn);
+        }
+        return $shippingArray;
+    }
+
+     public function getBillingByID($searchFor)
     {
         $servername = "localhost";
         $username = "root";
@@ -229,26 +301,24 @@ class itemDAO{
         {   
             echo "";
         } 
-        $shippingArray = array();
-        $sql = "SELECT * FROM shippinginformation s, customer c WHERE c.customerID = '$searchFor';";
+        $sql = "SELECT * FROM billinginformation WHERE customerID = '$searchFor';";
         $result = $conn->query($sql);
         if($row = $result->fetch_assoc())
         {
-            $shipping = new shippingDTO();
-            $shipping->shippingID = $row["shippingID"];
-            $shipping->customerID = $row["customerID"];
-            $shipping->shipAdd = $row["shipAdd"];
-            $shipping->shippingCity = $row["shippingCity"];
-            $shipping->shippingState = $row["shippingState"];
-            $shipping->shippingZipcode= $row["shippingZipcode"];
-            $shipping->fName =$row['fName'];
-            $shipping->lName =$row['lName'];
-             array_push($shippingArray, $shipping); 
+            $billing = new billingDTO();
+            $billing->billingID = $row["billingID"];
+            $billing->customerID = $row["customerID"];
+            $billing->billingAddress = $row["billingAddress"];
+            $billing->billingCity = $row["billingCity"];
+            $billing->billingState = $row["billingState"];
+            $billing->billingZipcode= $row["billingZipcode"];
+            $billing->creditCardNo = $row["creditCardNo"];
+            $billing->creditCardType = $row["creditCardType"];
+            $billing->creditCardCVC = $row["creditCardCVC"];
         }
-        return $shippingArray;
+        return $billing;
     }
-
-     public function getBillingByID($searchFor)
+     public function getBillingByID2($searchFor)
     {
         $servername = "localhost";
         $username = "root";
@@ -281,14 +351,15 @@ class itemDAO{
             $billing->creditCardNo = $row["creditCardNo"];
             $billing->creditCardType = $row["creditCardType"];
             $billing->creditCardCVC = $row["creditCardCVC"];
-            $billing->fname = $row["fName"];
-            $billing->lName = $row["lName"];
-           
-             array_push($billingArray, $billing); 
+            $billing->fName = $row['fName'];
+            $billing->lName = $row['lName'];
+            array_push($billingArray, $billing); 
+        }
+        else {
+            echo  "ERROR" . mysqli_error($conn);
         }
         return $billingArray;
     }
-
 
     public function getSearchResults($searchFor){
         $servername = "localhost";
@@ -443,7 +514,7 @@ class itemDAO{
         }
     }
 
-    public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
+ public function updateShipping($customerID, $shipAdd, $shippingCity, $shippingState, $shippingZipcode)
       {
         $servername = "localhost";
         $username = "root";
@@ -478,6 +549,7 @@ class itemDAO{
         }
                 
     }
+
 
     public function updateBilling($customerID, $billingAddress, $billingCity, $billingState, $billingZipcode, $creditCardNo, $creditCardType, $creditCardCVC)
       {
@@ -514,6 +586,45 @@ class itemDAO{
         }
                 
     }
+    
+    public function updatePassword($customerID,  $newPassword, $newPassword2)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "StoreDatabase";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) 
+        {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        else
+        {   
+            echo "";
+        }
+
+        if($newPassword==$newPassword2)
+        {
+    
+        
+            $sql = "UPDATE  customer SET password='$newPassword' WHERE (customerID='$customerID')";
+
+            if (mysqli_query($conn, $sql)) 
+            {
+                echo "Record updated successfully";
+                return TRUE;
+            }           
+            else 
+            {
+                echo "Error updating record: " . mysqli_error($conn);
+                return FALSE;
+            } 
+        }
+    }
+
 
     public function addOrder(){
         $servername = "localhost";
@@ -536,6 +647,10 @@ class itemDAO{
         $customer = $_SESSION['customer'];
         $shipping = $_SESSION['shippingInfo'];
         $billing =  $_SESSION['billingInfo'];
+        var_dump(  $newOrder);
+        var_dump($customer);
+        var_dump($shipping); 
+        var_dump($billing);
         foreach($_SESSION["shopping_cart"] as $keys => $values) {
             $newOrd = $newOrder[1];
             $ship   = $shipping[0];

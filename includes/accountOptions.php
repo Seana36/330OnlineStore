@@ -3,6 +3,6 @@
     <div class="list-group">
         <a href="./shippingController.php" class="list-group-item">Edit Shipping</a>
         <a href="./billingController.php" class="list-group-item">Edit Billing</a>
-        <a href="#" class="list-group-item">Update Password</a>
+        <a href="./updatePassController.php" class="list-group-item">Update Password</a>
     </div>
 </div>

@@ -5,7 +5,7 @@
 	session_start();
     $itemDAO = new itemDAO(); 
     $newOrder = $itemDAO->addOrder();
-    var_dump($newOrder);
+    #var_dump($newOrder);
     if($newOrder == true){
     	//submitted successfully 
     	echo "it worked!";

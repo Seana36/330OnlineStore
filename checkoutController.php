@@ -11,15 +11,15 @@
      #      $cust = $customer[$i];
 	#		$custID = $cust->customerID; 
 	#	}
-
-	$customerShipping = $itemDAO->getShippingByID($customer);
+	echo "CUSTOMER ID: ". $customer; 
+	$customerShipping = $itemDAO->getShippingByID2($customer);
 	$_SESSION['shippingInfo'] = $customerShipping;
 
-	$customerBilling = $itemDAO->getBillingByID($customer);
+	$customerBilling = $itemDAO->getBillingByID2($customer);
 	$_SESSION['billingInfo'] = $customerBilling; 
-	var_dump($_SESSION['customer']);
+	#var_dump($_SESSION['customer']);
 	#var_dump($custID);
-	var_dump($_SESSION['shippingInfo']);
-	var_dump($_SESSION['billingInfo']);
+	#var_dump($_SESSION['shippingInfo']);
+	#var_dump($_SESSION['billingInfo']);
 	header('location:checkout.php'); 
 ?>
