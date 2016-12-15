@@ -136,7 +136,9 @@ session_start();
           {  
                
               # foreach($_SESSION["shippingInfo"] as $keys => $values)
-        $customer = $_SESSION['shippingInfo'];                
+        $cust = $_SESSION['shippingInfo'];
+        for($i = 0; $i<count($cust); $i++){
+            $customer = $cust[$i];                
           ?>  
           <tr>  
                <td><?php echo $customer->fName ." " . $customer->lName ?></td>  
@@ -147,7 +149,7 @@ session_start();
           </tr>  
 
           <?php  
-          } 
+          } }
       ?>  
  </table>  
 </div>  
@@ -166,8 +168,10 @@ session_start();
                   <th width = "10%"> Credit Card Type </th>
                 </tr>
       <?php
-        if (!empty($_SESSION["billingInfo"])){  
-        $customer = $_SESSION['billingInfo'];               
+        if (!empty($_SESSION["billingInfo"])){     
+        $cust = $_SESSION['billingInfo']; 
+        for($i = 0; $i<count($cust); $i++){
+            $customer = $cust[$i];              
       ?>  
           <tr>  
                <td><?php echo $customer->fName ." " . $customer->lName ?></td>  
@@ -179,7 +183,7 @@ session_start();
           </tr>  
 
           <?php  
-          } 
+          } }
       ?>  
  </table>  
 </div> 

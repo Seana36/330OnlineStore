@@ -11,7 +11,7 @@
      #      $cust = $customer[$i];
 	#		$custID = $cust->customerID; 
 	#	}
-	echo "CUSTOMER ID: ". $customer; 
+	#echo "CUSTOMER ID: ". $customer; 
 	$customerShipping = $itemDAO->getShippingByID2($customer);
 	$_SESSION['shippingInfo'] = $customerShipping;
 
