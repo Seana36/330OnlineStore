@@ -8,7 +8,7 @@
     #var_dump($newOrder);
     if($newOrder == true){
     	//submitted successfully 
-    	echo "it worked!";
+    	#echo "it worked!";
     	header('location:successfulSubmit.php');
     }
     else {

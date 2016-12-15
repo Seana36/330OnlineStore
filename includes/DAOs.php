@@ -276,7 +276,7 @@ class itemDAO{
             $shipping->shippingZipcode= $row["shippingZipcode"];
             $shipping->fName = $row['fName'];
             $shipping->lName = $row['lName'];
-            var_dump($shipping);
+           # var_dump($shipping);
             array_push($shippingArray, $shipping);
         }
         else {
@@ -651,10 +651,10 @@ class itemDAO{
         $customer = $_SESSION['customer'];
         $shipping = $_SESSION['shippingInfo'];
         $billing =  $_SESSION['billingInfo'];
-        var_dump(  $newOrder);
-        var_dump($customer);
-        var_dump($shipping); 
-        var_dump($billing);
+      #  var_dump(  $newOrder);
+       # var_dump($customer);
+       # var_dump($shipping); 
+       # var_dump($billing);
         foreach($_SESSION["shopping_cart"] as $keys => $values) {
             $newOrd = $newOrder[1];
             $ship   = $shipping[0];
@@ -663,7 +663,7 @@ class itemDAO{
         if (mysqli_query($conn, $sql)) 
         {
             //echo "Record updated successfully";
-            echo "updated successfully";
+          #  echo "updated successfully";
             return TRUE; 
         }           
         else 
