@@ -136,9 +136,7 @@ session_start();
           {  
                
               # foreach($_SESSION["shippingInfo"] as $keys => $values)
-        $cust = $_SESSION['shippingInfo']; 
-        for($i = 0; $i<count($cust); $i++){
-            $customer = $cust[$i];                 
+        $customer = $_SESSION['shippingInfo'];                
           ?>  
           <tr>  
                <td><?php echo $customer->fName ." " . $customer->lName ?></td>  
@@ -149,7 +147,6 @@ session_start();
           </tr>  
 
           <?php  
-          }
           } 
       ?>  
  </table>  
@@ -170,9 +167,7 @@ session_start();
                 </tr>
       <?php
         if (!empty($_SESSION["billingInfo"])){  
-        $cust = $_SESSION['billingInfo']; 
-        for($i = 0; $i<count($cust); $i++){
-            $customer = $cust[$i];                 
+        $customer = $_SESSION['billingInfo'];               
       ?>  
           <tr>  
                <td><?php echo $customer->fName ." " . $customer->lName ?></td>  
@@ -184,7 +179,6 @@ session_start();
           </tr>  
 
           <?php  
-          }
           } 
       ?>  
  </table>  
