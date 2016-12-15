@@ -177,14 +177,17 @@ class TestingScipts{
 		echo "Testing getShippingByID to get the shipping of the user with CustomerID 1<br>";
 		$test9 = new itemDAO();
 		$TESTING9 = $test9->getShippingByID(1);
-		if($TESTING9->customerID == 1)
+		for($i = 0; $i<count($TESTING9); $i++){
+            $customer = $TESTING9[$i]; 
+		if($customer->customerID == '1')
 		{
 			echo "The information was successfully retrieved<br>";
-			echo "Address: $TESTING9->shipAdd<br>";
-			echo "City: $TESTING9->shippingCity<br>";
-			echo "State: $TESTING9->shippingState<br>";
-			echo "Zip: $TESTING9->shippingZipcode<br>";
+			echo "Address: $customer->shipAdd<br>";
+			echo "City: $customer->shippingCity<br>";
+			echo "State: $customer->shippingState<br>";
+			echo "Zip: $customer->shippingZipcode<br>";
 		 	echo "------------------------------------------------------------------------<br>";
+		}
 		}
 	}
 
@@ -193,17 +196,20 @@ class TestingScipts{
 		echo "Testing getBillingByID to get the billing of the user with CustomerID 1<br>";
 		$test10 = new itemDAO();
 		$TESTING10 = $test10->getBillingByID(1);
-		if($TESTING10->customerID == 1)
+		for($i = 0; $i<count($TESTING10); $i++){
+            $customer = $TESTING10[$i]; 
+		if($customer->customerID == 1)
 		{
 			echo "The information was successfully retrieved<br>";
-			echo "Address: $TESTING10->billingAddress<br>";
-			echo "City: $TESTING10->billingCity<br>";
-			echo "State: $TESTING10->billingState<br>";
-			echo "Zip: $TESTING10->billingZipcode<br>";
-			echo "Card No: $TESTING10->creditCardNo<br>";
-			echo "Card Type: $TESTING10->creditCardType<br>";
-			echo "CVC: $TESTING10->creditCardCVC<br>";
+			echo "Address: $customer->billingAddress<br>";
+			echo "City: $customer->billingCity<br>";
+			echo "State: $customer->billingState<br>";
+			echo "Zip: $customer->billingZipcode<br>";
+			echo "Card No: $customer->creditCardNo<br>";
+			echo "Card Type: $customer->creditCardType<br>";
+			echo "CVC: $customer->creditCardCVC<br>";
 		 	echo "------------------------------------------------------------------------<br>";
+		}
 		}
 	}
 
